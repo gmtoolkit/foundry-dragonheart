@@ -1,0 +1,31 @@
+<div class="daggerheart domain-card-chat">
+  <div class="card-header">
+    <img src="{{item.img}}" width="36" height="36" />
+    <div class="card-title">
+      <h4>{{item.name}}</h4>
+      <div class="card-meta">
+        <span class="domain">{{capitalize data.domain}}</span>
+        <span class="level">Level {{data.level}}</span>
+        {{#if data.recallCost}}
+          <span class="recall-cost">{{data.recallCost}} Stress</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card-description">
+    {{{data.description}}}
+  </div>
+
+  {{#if data.effect}}
+    <div class="card-effect">
+      <strong>Effect:</strong> {{{data.effect}}}
+    </div>
+  {{/if}}
+
+  <div class="card-properties">
+    {{#each data.properties as |prop|}}
+      <span class="property">{{prop}}</span>
+    {{/each}}
+  </div>
+</div> 

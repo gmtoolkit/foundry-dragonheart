@@ -1,0 +1,33 @@
+<div class="connections-section">
+  <h3>Connections</h3>
+  <p class="section-description">Important relationships and bonds that shape your character.</p>
+  
+  <div class="connections-list">
+    {{#each system.connections as |connection index|}}
+      <div class="connection-item">
+        <div class="connection-header flexrow">
+          <input type="text" name="system.connections.{{index}}.name" value="{{connection.name}}" placeholder="Connection Name"/>
+          <button type="button" class="connection-remove" data-index="{{index}}" title="Remove Connection">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <div class="connection-description">
+          <textarea name="system.connections.{{index}}.description" placeholder="Describe this relationship...">{{connection.description}}</textarea>
+        </div>
+      </div>
+    {{/each}}
+
+    {{#unless system.connections}}
+      <div class="empty-connections">
+        <p>No connections defined. Add relationships that are important to your character.</p>
+      </div>
+    {{/unless}}
+  </div>
+
+  {{!-- Add connection --}}
+  <div class="connection-controls">
+    <button type="button" class="add-connection" title="Add Connection">
+      <i class="fas fa-plus"></i> Add Connection
+    </button>
+  </div>
+</div> 

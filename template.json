@@ -1,0 +1,168 @@
+{
+  "Actor": {
+    "types": ["pc", "npc"],
+    "templates": {
+      "base": {
+        "health": {
+          "value": 10,
+          "max": 10,
+          "temp": 0
+        },
+        "stress": {
+          "value": 0,
+          "max": 10
+        },
+        "biography": "",
+        "notes": ""
+      }
+    },
+    "pc": {
+      "templates": ["base"],
+      "traits": {
+        "agility": {
+          "value": 0,
+          "mod": 0
+        },
+        "strength": {
+          "value": 0,
+          "mod": 0
+        },
+        "finesse": {
+          "value": 0,
+          "mod": 0
+        },
+        "instinct": {
+          "value": 0,
+          "mod": 0
+        },
+        "presence": {
+          "value": 0,
+          "mod": 0
+        },
+        "knowledge": {
+          "value": 0,
+          "mod": 0
+        }
+      },
+      "derived": {
+        "evasion": {
+          "value": 0
+        },
+        "proficiency": {
+          "value": 0
+        },
+        "hope": {
+          "value": 0,
+          "max": 5
+        }
+      },
+      "equipment": {
+        "weapon": "",
+        "armor": "",
+        "shield": ""
+      },
+      "domains": {
+        "primary": "",
+        "secondary": ""
+      },
+      "class": {
+        "name": "",
+        "level": 1
+      },
+      "subclass": {
+        "name": ""
+      },
+      "ancestry": {
+        "name": ""
+      },
+      "community": {
+        "name": ""
+      },
+      "experiences": [],
+      "connections": [],
+      "inventory": [],
+      "loadout": [],
+      "vault": []
+    },
+    "npc": {
+      "templates": ["base"],
+      "difficulty": 10,
+      "damage": {
+        "minor": "",
+        "major": ""
+      },
+      "thresholds": {
+        "minor": 0,
+        "major": 0
+      },
+      "traits": {
+        "agility": 0,
+        "strength": 0,
+        "finesse": 0,
+        "instinct": 0,
+        "presence": 0,
+        "knowledge": 0
+      },
+      "abilities": [],
+      "description": ""
+    }
+  },
+  "Item": {
+    "types": ["class", "subclass", "ancestry", "community", "domain-card", "equipment", "experience"],
+    "templates": {
+      "base": {
+        "description": "",
+        "source": ""
+      }
+    },
+    "class": {
+      "templates": ["base"],
+      "hpBonus": 0,
+      "evasionBonus": 0,
+      "classItem": "",
+      "hopeFeature": "",
+      "coreFeature": "",
+      "level": 1
+    },
+    "subclass": {
+      "templates": ["base"],
+      "spellcastingTrait": "",
+      "foundationFeature": "",
+      "specializationFeature": "",
+      "masteryFeature": "",
+      "parentClass": ""
+    },
+    "ancestry": {
+      "templates": ["base"],
+      "features": []
+    },
+    "community": {
+      "templates": ["base"],
+      "feature": ""
+    },
+    "domain-card": {
+      "templates": ["base"],
+      "level": 1,
+      "domain": "",
+      "recallCost": 0,
+      "cardType": "ability",
+      "effect": "",
+      "location": "vault"
+    },
+    "equipment": {
+      "templates": ["base"],
+      "equipmentType": "weapon",
+      "tier": 1,
+      "damage": "",
+      "modifiers": [],
+      "equipped": false,
+      "quantity": 1,
+      "weight": 0
+    },
+    "experience": {
+      "templates": ["base"],
+      "modifier": 0,
+      "shortName": ""
+    }
+  }
+} 

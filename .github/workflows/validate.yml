@@ -1,0 +1,102 @@
+# Validation workflow to ensure system is properly structured
+name: Validate System
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate System Structure
+      run: |
+        echo "Validating required files exist..."
+        
+        # Check required files
+        test -f system.json || (echo "ERROR: system.json not found" && exit 1)
+        test -f template.json || (echo "ERROR: template.json not found" && exit 1)
+        test -f README.md || (echo "ERROR: README.md not found" && exit 1)
+        test -f LICENSE.txt || (echo "ERROR: LICENSE.txt not found" && exit 1)
+        
+        # Check required directories
+        test -d scripts || (echo "ERROR: scripts directory not found" && exit 1)
+        test -d templates || (echo "ERROR: templates directory not found" && exit 1)
+        test -d styles || (echo "ERROR: styles directory not found" && exit 1)
+        test -d lang || (echo "ERROR: lang directory not found" && exit 1)
+        test -d packs || (echo "ERROR: packs directory not found" && exit 1)
+        
+        echo "✅ All required files and directories found"
+    
+    - name: Validate JSON Files
+      run: |
+        echo "Validating JSON syntax..."
+        
+        # Validate system.json
+        python3 -m json.tool system.json > /dev/null || (echo "ERROR: Invalid JSON in system.json" && exit 1)
+        echo "✅ system.json is valid"
+        
+        # Validate template.json  
+        python3 -m json.tool template.json > /dev/null || (echo "ERROR: Invalid JSON in template.json" && exit 1)
+        echo "✅ template.json is valid"
+        
+        # Validate language files
+        python3 -m json.tool lang/en.json > /dev/null || (echo "ERROR: Invalid JSON in lang/en.json" && exit 1)
+        echo "✅ lang/en.json is valid"
+    
+    - name: Check System Manifest Content
+      run: |
+        echo "Validating system.json content..."
+        
+        # Check required fields
+        grep -q '"id": "daggerheart"' system.json || (echo "ERROR: Missing or incorrect id in system.json" && exit 1)
+        grep -q '"title": "Daggerheart"' system.json || (echo "ERROR: Missing or incorrect title in system.json" && exit 1)
+        grep -q '"version"' system.json || (echo "ERROR: Missing version in system.json" && exit 1)
+        grep -q '"compatibility"' system.json || (echo "ERROR: Missing compatibility in system.json" && exit 1)
+        grep -q '"manifest"' system.json || (echo "ERROR: Missing manifest URL in system.json" && exit 1)
+        grep -q '"download"' system.json || (echo "ERROR: Missing download URL in system.json" && exit 1)
+        
+        echo "✅ system.json has required fields"
+    
+    - name: Test Zip Creation
+      run: |
+        echo "Testing release zip creation..."
+        
+        # Test that zip creation works with exclusion list
+        zip -r ./test-system.zip . -x@.github/zip-exclude.lst
+        
+        # Check that important files are included
+        unzip -l test-system.zip | grep -q system.json || (echo "ERROR: system.json not in zip" && exit 1)
+        unzip -l test-system.zip | grep -q template.json || (echo "ERROR: template.json not in zip" && exit 1)
+        unzip -l test-system.zip | grep -q "scripts/" || (echo "ERROR: scripts directory not in zip" && exit 1)
+        
+        # Check that excluded files are not included
+        ! unzip -l test-system.zip | grep -q ".git/" || (echo "ERROR: .git directory incorrectly included in zip" && exit 1)
+        ! unzip -l test-system.zip | grep -q ".github/" || (echo "ERROR: .github directory incorrectly included in zip" && exit 1)
+        ! unzip -l test-system.zip | grep -q "CONTRIBUTING.md" || (echo "ERROR: CONTRIBUTING.md incorrectly included in zip" && exit 1)
+        
+        echo "✅ Zip creation test passed"
+        
+        # Clean up
+        rm test-system.zip
+    
+    - name: Check License Compliance
+      run: |
+        echo "Checking license compliance..."
+        
+        # Check that license file exists and contains required text
+        grep -q "MIT License" LICENSE.txt || (echo "ERROR: MIT License text not found" && exit 1)
+        grep -q "Daggerheart System Reference Document" LICENSE.txt || (echo "ERROR: DPCGL attribution not found" && exit 1)
+        grep -q "Critical Role, LLC" LICENSE.txt || (echo "ERROR: Critical Role attribution not found" && exit 1)
+        
+        echo "✅ License compliance check passed"
+        
+    - name: Validation Summary
+      run: |
+        echo "🎉 All validation checks passed!"
+        echo "System is ready for release process." 

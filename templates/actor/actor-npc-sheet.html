@@ -1,0 +1,108 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="NPC Name"/></h1>
+      <div class="resources flexrow">
+        <div class="resource">
+          <label for="system.health.value" class="resource-label">HP</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="resource">
+          <label for="system.stress.value" class="resource-label">Stress</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Basic Stats --}}
+    <div class="npc-stats grid grid-2col">
+      <div class="basic-info">
+        <h3>Basic Information</h3>
+        
+        <div class="form-group">
+          <label>Difficulty</label>
+          <input type="text" name="system.difficulty" value="{{system.difficulty}}" data-dtype="Number"/>
+        </div>
+
+        <div class="form-group">
+          <label>Minor Damage Threshold</label>
+          <input type="text" name="system.thresholds.minor" value="{{system.thresholds.minor}}" data-dtype="Number"/>
+        </div>
+
+        <div class="form-group">
+          <label>Major Damage Threshold</label>
+          <input type="text" name="system.thresholds.major" value="{{system.thresholds.major}}" data-dtype="Number"/>
+        </div>
+      </div>
+
+      <div class="damage-info">
+        <h3>Damage</h3>
+        
+        <div class="form-group">
+          <label>Minor Damage</label>
+          <input type="text" name="system.damage.minor" value="{{system.damage.minor}}" placeholder="e.g., 1d6"/>
+        </div>
+
+        <div class="form-group">
+          <label>Major Damage</label>
+          <input type="text" name="system.damage.major" value="{{system.damage.major}}" placeholder="e.g., 2d6+2"/>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Traits --}}
+    <div class="npc-traits">
+      <h3>Traits</h3>
+      <div class="traits-list grid grid-3col">
+        {{#each system.traits as |value key|}}
+          <div class="trait">
+            <label class="trait-label">{{capitalize key}}</label>
+            <input type="text" name="system.traits.{{key}}" value="{{value}}" data-dtype="Number"/>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- Abilities --}}
+    <div class="npc-abilities">
+      <h3>Abilities</h3>
+      <div class="abilities-list">
+        {{#each system.abilities as |ability index|}}
+          <div class="ability-item flexrow">
+            <input type="text" name="system.abilities.{{index}}.name" value="{{ability.name}}" placeholder="Ability Name"/>
+            <textarea name="system.abilities.{{index}}.description" placeholder="Ability description...">{{ability.description}}</textarea>
+            <button type="button" class="ability-remove" data-index="{{index}}" title="Remove Ability">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        {{/each}}
+      </div>
+      
+      <button type="button" class="add-ability" title="Add Ability">
+        <i class="fas fa-plus"></i> Add Ability
+      </button>
+    </div>
+
+    {{!-- Description --}}
+    <div class="npc-description">
+      <h3>Description & Notes</h3>
+      {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+    </div>
+
+  </section>
+</form> 

@@ -1,0 +1,95 @@
+{
+  "id": "daggerheart",
+  "title": "Daggerheart",
+  "description": "A game system for Daggerheart RPG on Foundry Virtual Tabletop",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Daggerheart System Developer",
+      "email": "",
+      "discord": "",
+      "website": ""
+    }
+  ],
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "scripts": [
+    "scripts/init.js"
+  ],
+  "styles": [
+    "styles/daggerheart.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "stress",
+  "packs": [
+    {
+      "name": "classes",
+      "label": "Classes",
+      "path": "packs/classes.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "subclasses",
+      "label": "Subclasses", 
+      "path": "packs/subclasses.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "ancestries",
+      "label": "Ancestries",
+      "path": "packs/ancestries.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "communities",
+      "label": "Communities",
+      "path": "packs/communities.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "domain-cards",
+      "label": "Domain Cards",
+      "path": "packs/domain-cards.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "equipment",
+      "label": "Equipment",
+      "path": "packs/equipment.db",
+      "type": "Item",
+      "system": "daggerheart"
+    },
+    {
+      "name": "monsters",
+      "label": "Monsters & NPCs",
+      "path": "packs/monsters.db",
+      "type": "Actor",
+      "system": "daggerheart"
+    }
+  ],
+  "socket": true,
+  "manifest": "https://github.com/gmtoolkit/foundry-dragonheart/releases/latest/download/system.json",
+  "download": "https://github.com/gmtoolkit/foundry-dragonheart/releases/latest/download/system.zip",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11",
+    "maximum": "12"
+  },
+  "license": "LICENSE.txt",
+  "readme": "README.md"
+} 

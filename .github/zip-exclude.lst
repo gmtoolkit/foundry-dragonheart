@@ -1,0 +1,69 @@
+# Git and version control
+.git/*
+.gitignore
+.gitattributes
+
+# GitHub specific files
+.github/*
+
+# Development files
+node_modules/*
+.npm/*
+package.json
+package-lock.json
+yarn.lock
+.env
+.env.*
+
+# IDE and editor files
+.vscode/*
+.idea/*
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/*
+*.log
+
+# Build artifacts
+dist/*
+build/*
+
+# Backup files
+*.bak
+*.backup
+
+# Development specific files
+foundry-link
+.nyc_output/*
+coverage/*
+
+# Test files
+test/*
+tests/*
+spec/*
+*.test.js
+*.spec.js
+test-results/*
+playwright-report/*
+test-output/*
+
+# Documentation source (keep README.md but exclude development docs)
+CONTRIBUTING.md
+CHANGELOG.md
+foundry_daggerheart_prompts.md
+
+# Lock files for pack databases (actual .db files should be included if they exist)
+packs/*.lock 

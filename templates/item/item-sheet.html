@@ -1,0 +1,258 @@
+<form class="{{cssClass}} {{item.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+    <div class="header-fields">
+      <h1 class="item-name"><input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/></h1>
+      <div class="item-subtitle">{{capitalize item.type}}</div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="details">Details</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      
+      {{!-- Domain Card Details --}}
+      {{#if (eq item.type "domain-card")}}
+        <div class="domain-card-details">
+          <div class="form-group">
+            <label>Level</label>
+            <select name="system.level">
+              {{#each (range 1 11) as |level|}}
+                <option value="{{level}}" {{#if (eq ../system.level level)}}selected{{/if}}>{{level}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Domain</label>
+            <select name="system.domain">
+              {{#each domains as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.domain @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Card Type</label>
+            <select name="system.cardType">
+              {{#each cardTypes as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.cardType @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Recall Cost</label>
+            <input type="text" name="system.recallCost" value="{{system.recallCost}}" data-dtype="Number"/>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <select name="system.location">
+              {{#each locations as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.location @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Effect</label>
+            <textarea name="system.effect" placeholder="Describe the card's mechanical effect...">{{system.effect}}</textarea>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Equipment Details --}}
+      {{#if (eq item.type "equipment")}}
+        <div class="equipment-details">
+          <div class="form-group">
+            <label>Equipment Type</label>
+            <select name="system.equipmentType">
+              {{#each equipmentTypes as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.equipmentType @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tier</label>
+            <select name="system.tier">
+              {{#each tiers as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.tier @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          {{#if (eq system.equipmentType "weapon")}}
+            <div class="form-group">
+              <label>Damage</label>
+              <input type="text" name="system.damage" value="{{system.damage}}" placeholder="e.g., 1d6+1"/>
+            </div>
+          {{/if}}
+
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
+          </div>
+
+          <div class="form-group">
+            <label>Weight (per item)</label>
+            <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number"/>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="system.equipped" {{checked system.equipped}}/>
+              Equipped
+            </label>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Class Details --}}
+      {{#if (eq item.type "class")}}
+        <div class="class-details">
+          <div class="form-group">
+            <label>Level</label>
+            <select name="system.level">
+              {{#each classLevels as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.level @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>HP Bonus</label>
+            <input type="text" name="system.hpBonus" value="{{system.hpBonus}}" data-dtype="Number"/>
+          </div>
+
+          <div class="form-group">
+            <label>Evasion Bonus</label>
+            <input type="text" name="system.evasionBonus" value="{{system.evasionBonus}}" data-dtype="Number"/>
+          </div>
+
+          <div class="form-group">
+            <label>Class Item</label>
+            <input type="text" name="system.classItem" value="{{system.classItem}}" placeholder="Starting equipment"/>
+          </div>
+
+          <div class="form-group">
+            <label>Hope Feature</label>
+            <textarea name="system.hopeFeature" placeholder="How this class uses Hope...">{{system.hopeFeature}}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Core Feature</label>
+            <textarea name="system.coreFeature" placeholder="Core class ability...">{{system.coreFeature}}</textarea>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Subclass Details --}}
+      {{#if (eq item.type "subclass")}}
+        <div class="subclass-details">
+          <div class="form-group">
+            <label>Parent Class</label>
+            <input type="text" name="system.parentClass" value="{{system.parentClass}}" placeholder="Which class this belongs to"/>
+          </div>
+
+          <div class="form-group">
+            <label>Spellcasting Trait</label>
+            <select name="system.spellcastingTrait">
+              <option value="">None</option>
+              {{#each spellcastingTraits as |label value|}}
+                <option value="{{@key}}" {{#if (eq ../system.spellcastingTrait @key)}}selected{{/if}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Foundation Feature</label>
+            <textarea name="system.foundationFeature" placeholder="Foundation level ability...">{{system.foundationFeature}}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Specialization Feature</label>
+            <textarea name="system.specializationFeature" placeholder="Specialization level ability...">{{system.specializationFeature}}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Mastery Feature</label>
+            <textarea name="system.masteryFeature" placeholder="Mastery level ability...">{{system.masteryFeature}}</textarea>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Ancestry Details --}}
+      {{#if (eq item.type "ancestry")}}
+        <div class="ancestry-details">
+          <div class="form-group">
+            <label>Features</label>
+            <div class="features-list">
+              {{#each system.features as |feature index|}}
+                <div class="feature-item flexrow">
+                  <input type="text" name="system.features.{{index}}.name" value="{{feature.name}}" placeholder="Feature Name"/>
+                  <textarea name="system.features.{{index}}.description" placeholder="Feature description...">{{feature.description}}</textarea>
+                  <button type="button" class="feature-remove" data-index="{{index}}" title="Remove Feature">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              {{/each}}
+            </div>
+            <button type="button" class="add-feature" title="Add Feature">
+              <i class="fas fa-plus"></i> Add Feature
+            </button>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Community Details --}}
+      {{#if (eq item.type "community")}}
+        <div class="community-details">
+          <div class="form-group">
+            <label>Community Feature</label>
+            <textarea name="system.feature" placeholder="Community benefit or ability...">{{system.feature}}</textarea>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Experience Details --}}
+      {{#if (eq item.type "experience")}}
+        <div class="experience-details">
+          <div class="form-group">
+            <label>Short Name</label>
+            <input type="text" name="system.shortName" value="{{system.shortName}}" placeholder="Brief descriptor"/>
+          </div>
+
+          <div class="form-group">
+            <label>Modifier</label>
+            <input type="text" name="system.modifier" value="{{system.modifier}}" data-dtype="Number" placeholder="Bonus when applicable"/>
+          </div>
+        </div>
+      {{/if}}
+
+      {{!-- Source --}}
+      <div class="form-group">
+        <label>Source</label>
+        <input type="text" name="system.source" value="{{system.source}}" placeholder="Book/compendium source"/>
+      </div>
+
+    </div>
+
+  </section>
+</form> 

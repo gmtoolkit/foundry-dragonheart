@@ -1,0 +1,229 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
+      <div class="resources flexrow">
+        <div class="resource">
+          <label for="system.health.value" class="resource-label">HP</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="resource">
+          <label for="system.stress.value" class="resource-label">Stress</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="resource">
+          <label for="system.derived.hope.value" class="resource-label">Hope</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
+          </div>
+          <div class="hope-controls flexrow">
+            <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="hope-gain" data-amount="1" title="Gain Hope">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="overview">Overview</a>
+    <a class="item" data-tab="heritage">Heritage</a>
+    <a class="item" data-tab="class">Class</a>
+    <a class="item" data-tab="inventory">Inventory</a>
+    <a class="item" data-tab="roleplay">Roleplay</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Overview Tab --}}
+    <div class="tab overview" data-group="primary" data-tab="overview">
+      <div class="grid grid-2col">
+        
+        {{!-- Left Column --}}
+        <div class="traits">
+          <h3>Traits</h3>
+          {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
+        </div>
+
+        {{!-- Right Column --}}
+        <div class="derived-stats">
+          <h3>Derived Stats</h3>
+          <div class="stat-block">
+            <div class="stat">
+              <label class="stat-label rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
+              <div class="stat-value">{{system.derived.evasion.value}}</div>
+            </div>
+            <div class="stat">
+              <label class="stat-label">Proficiency</label>
+              <div class="stat-value">{{system.derived.proficiency.value}}</div>
+            </div>
+          </div>
+
+          <div class="rest-controls">
+            <h4>Rest</h4>
+            <button type="button" class="short-rest">Short Rest</button>
+            <button type="button" class="long-rest">Long Rest</button>
+          </div>
+
+          <div class="stress-controls">
+            <h4>Stress Management</h4>
+            <button type="button" class="stress-add" data-amount="1">+1 Stress</button>
+            <button type="button" class="stress-clear" data-amount="1">-1 Stress</button>
+            <button type="button" class="stress-clear">Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Heritage Tab --}}
+    <div class="tab heritage" data-group="primary" data-tab="heritage">
+      <div class="grid grid-2col">
+        <div class="ancestry-section">
+          <h3>Ancestry</h3>
+          {{#if ancestry}}
+            <div class="ancestry-display">
+              <h4>{{ancestry.name}}</h4>
+              <div class="ancestry-description">{{{ancestry.system.description}}}</div>
+              {{#each ancestry.system.features as |feature|}}
+                <div class="feature">
+                  <strong>{{feature.name}}:</strong> {{feature.description}}
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="no-ancestry">
+              <p>No ancestry selected. Drag an ancestry from the compendium or create one.</p>
+            </div>
+          {{/if}}
+        </div>
+
+        <div class="community-section">
+          <h3>Community</h3>
+          {{#if community}}
+            <div class="community-display">
+              <h4>{{community.name}}</h4>
+              <div class="community-description">{{{community.system.description}}}</div>
+              <div class="feature">
+                <strong>Community Feature:</strong> {{community.system.feature}}
+              </div>
+            </div>
+          {{else}}
+            <div class="no-community">
+              <p>No community selected. Drag a community from the compendium or create one.</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Class Tab --}}
+    <div class="tab class" data-group="primary" data-tab="class">
+      <div class="class-info">
+        <h3>Class Information</h3>
+        {{#if classes}}
+          {{#each classes as |cls|}}
+            <div class="class-item">
+              <h4>{{cls.name}}</h4>
+              {{#if (eq cls.type "class")}}
+                <div class="class-details">
+                  <p><strong>Level:</strong> {{cls.system.level}}</p>
+                  <p><strong>HP Bonus:</strong> +{{cls.system.hpBonus}}</p>
+                  <p><strong>Evasion Bonus:</strong> +{{cls.system.evasionBonus}}</p>
+                  {{#if cls.system.classItem}}
+                    <p><strong>Class Item:</strong> {{cls.system.classItem}}</p>
+                  {{/if}}
+                  {{#if cls.system.hopeFeature}}
+                    <div class="hope-feature">
+                      <strong>Hope Feature:</strong> {{cls.system.hopeFeature}}
+                    </div>
+                  {{/if}}
+                  {{#if cls.system.coreFeature}}
+                    <div class="core-feature">
+                      <strong>Core Feature:</strong> {{cls.system.coreFeature}}
+                    </div>
+                  {{/if}}
+                </div>
+              {{else}}
+                <div class="subclass-details">
+                  <p><strong>Type:</strong> Subclass</p>
+                  {{#if cls.system.spellcastingTrait}}
+                    <p><strong>Spellcasting Trait:</strong> {{cls.system.spellcastingTrait}}</p>
+                  {{/if}}
+                  {{#if cls.system.foundationFeature}}
+                    <div class="foundation-feature">
+                      <strong>Foundation:</strong> {{cls.system.foundationFeature}}
+                    </div>
+                  {{/if}}
+                  {{#if cls.system.specializationFeature}}
+                    <div class="specialization-feature">
+                      <strong>Specialization:</strong> {{cls.system.specializationFeature}}
+                    </div>
+                  {{/if}}
+                  {{#if cls.system.masteryFeature}}
+                    <div class="mastery-feature">
+                      <strong>Mastery:</strong> {{cls.system.masteryFeature}}
+                    </div>
+                  {{/if}}
+                </div>
+              {{/if}}
+              <div class="class-description">{{{cls.system.description}}}</div>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>No class selected. Drag a class from the compendium or create one.</p>
+        {{/if}}
+      </div>
+
+      <div class="domain-cards">
+        {{> "systems/daggerheart/templates/actor/parts/actor-loadout.html"}}
+      </div>
+    </div>
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory" data-group="primary" data-tab="inventory">
+      {{> "systems/daggerheart/templates/actor/parts/actor-inventory.html"}}
+    </div>
+
+    {{!-- Roleplay Tab --}}
+    <div class="tab roleplay" data-group="primary" data-tab="roleplay">
+      <div class="grid grid-2col">
+        <div class="experiences">
+          {{> "systems/daggerheart/templates/actor/parts/actor-experiences.html"}}
+        </div>
+        <div class="connections">
+          {{> "systems/daggerheart/templates/actor/parts/actor-connections.html"}}
+        </div>
+      </div>
+      
+      <div class="biography">
+        <h3>Biography</h3>
+        {{editor system.biography target="system.biography" button=true owner=owner editable=editable}}
+      </div>
+      
+      <div class="notes">
+        <h3>Notes</h3>
+        {{editor system.notes target="system.notes" button=true owner=owner editable=editable}}
+      </div>
+    </div>
+
+  </section>
+</form> 

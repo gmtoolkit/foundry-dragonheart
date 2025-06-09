@@ -1,0 +1,129 @@
+{
+  "DAGGERHEART": {
+    "SystemName": "Daggerheart",
+    
+    "ActorTypes": {
+      "pc": "Player Character",
+      "npc": "Non-Player Character"
+    },
+    
+    "ItemTypes": {
+      "class": "Class",
+      "subclass": "Subclass", 
+      "ancestry": "Ancestry",
+      "community": "Community",
+      "domain-card": "Domain Card",
+      "equipment": "Equipment",
+      "experience": "Experience"
+    },
+    
+    "Traits": {
+      "agility": "Agility",
+      "strength": "Strength", 
+      "finesse": "Finesse",
+      "instinct": "Instinct",
+      "presence": "Presence",
+      "knowledge": "Knowledge"
+    },
+    
+    "Stats": {
+      "health": "Health",
+      "stress": "Stress",
+      "hope": "Hope",
+      "evasion": "Evasion",
+      "proficiency": "Proficiency"
+    },
+    
+    "Domains": {
+      "arcana": "Arcana",
+      "blade": "Blade",
+      "bone": "Bone", 
+      "codex": "Codex",
+      "grace": "Grace",
+      "midnight": "Midnight",
+      "sage": "Sage",
+      "splendor": "Splendor",
+      "valor": "Valor"
+    },
+    
+    "CardTypes": {
+      "ability": "Ability",
+      "spell": "Spell",
+      "grimoire": "Grimoire"
+    },
+    
+    "EquipmentTypes": {
+      "weapon": "Weapon",
+      "armor": "Armor",
+      "shield": "Shield",
+      "tool": "Tool",
+      "gear": "Gear"
+    },
+    
+    "SheetTabs": {
+      "overview": "Overview",
+      "heritage": "Heritage", 
+      "class": "Class",
+      "inventory": "Inventory",
+      "roleplay": "Roleplay"
+    },
+    
+    "Actions": {
+      "roll": "Roll",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create",
+      "equip": "Equip",
+      "unequip": "Unequip",
+      "moveToLoadout": "Move to Loadout", 
+      "moveToVault": "Move to Vault",
+      "spendHope": "Spend Hope",
+      "gainHope": "Gain Hope",
+      "takeStress": "Take Stress",
+      "clearStress": "Clear Stress",
+      "shortRest": "Short Rest",
+      "longRest": "Long Rest"
+    },
+    
+    "DualityDice": {
+      "hopeDie": "Hope Die",
+      "fearDie": "Fear Die",
+      "hopeSuccess": "Success with Hope!",
+      "fearSuccess": "Success with Fear!",
+      "hopeFailure": "Failure with Hope",
+      "fearFailure": "Failure with Fear",
+      "criticalSuccess": "Critical Success!",
+      "criticalFailure": "Critical Failure!",
+      "difficulty": "Difficulty",
+      "modifier": "Modifier",
+      "hopeSpent": "Hope Spent",
+      "result": "Result"
+    },
+    
+    "Messages": {
+      "notEnoughHope": "Not enough Hope to spend!",
+      "notEnoughStress": "Not enough stress capacity for recall!",
+      "mustBeInLoadout": "Domain card must be in your loadout to use!",
+      "shortRestComplete": "Short rest completed! You may swap one domain card between vault and loadout.",
+      "longRestComplete": "Long rest completed! All stress cleared. You may reorganize your entire loadout.",
+      "hopeSpent": "Spent {amount} Hope!",
+      "hopeGained": "Gained {amount} Hope!",
+      "stressCleared": "Cleared {amount} stress.",
+      "maxStress": "{name} is at maximum stress!"
+    },
+    
+    "Settings": {
+      "enablePlaytestContent": "Enable Playtest Content",
+      "enablePlaytestContentHint": "Enable content marked as playtest material (restricted from commercial use)",
+      "hopeTokens": "Hope Tokens Available", 
+      "hopeTokensHint": "Number of Hope tokens available to the party"
+    },
+    
+    "Warnings": {
+      "invalidLocation": "Invalid location for domain card!",
+      "traitNotFound": "Trait {trait} not found!",
+      "itemNotFound": "Your controlled Actor does not have an item named {name}",
+      "noMacroCreate": "You can only create macro buttons for owned Items"
+    }
+  }
+} 
