@@ -6,9 +6,7 @@
       <div class="card-meta">
         <span class="domain">{{capitalize data.domain}}</span>
         <span class="level">Level {{data.level}}</span>
-        {{#if data.recallCost}}
-          <span class="recall-cost">{{data.recallCost}} Stress</span>
-        {{/if}}
+        <span class="recall">Recall: {{data.recallCost}} Stress</span>
       </div>
     </div>
   </div>
@@ -24,8 +22,8 @@
   {{/if}}
 
   <div class="card-properties">
-    {{#each data.properties as |prop|}}
-      <span class="property">{{prop}}</span>
+    {{#each data.properties}}
+      <span class="property">{{this}}</span>
     {{/each}}
   </div>
 </div> 

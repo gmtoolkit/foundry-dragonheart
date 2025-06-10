@@ -1,58 +1,61 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Sheet Header --}}
-  <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
-      <div class="resources flexrow">
-        <div class="resource">
-          <label for="system.health.value" class="resource-label">HP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+  {{!-- Fixed Header Section --}}
+  <div class="sheet-header-container">
+    {{!-- Sheet Header --}}
+    <header class="sheet-header">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
+        <div class="resources flexrow">
+          <div class="resource">
+            <label for="system.health.value" class="resource-label">HP</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+              <span> / </span>
+              <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+            </div>
           </div>
-        </div>
-        <div class="resource">
-          <label for="system.stress.value" class="resource-label">Stress</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
+          <div class="resource">
+            <label for="system.stress.value" class="resource-label">Stress</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
+              <span> / </span>
+              <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
+            </div>
           </div>
-        </div>
-        <div class="resource">
-          <label for="system.derived.hope.value" class="resource-label">Hope</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
-          </div>
-          <div class="hope-controls flexrow">
-            <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="hope-gain" data-amount="1" title="Gain Hope">
-              <i class="fas fa-plus"></i>
-            </button>
+          <div class="resource">
+            <label for="system.derived.hope.value" class="resource-label">Hope</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
+              <span> / </span>
+              <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
+            </div>
+            <div class="hope-controls flexrow">
+              <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="hope-gain" data-amount="1" title="Gain Hope">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="overview">Overview</a>
-    <a class="item" data-tab="heritage">Heritage</a>
-    <a class="item" data-tab="class">Class</a>
-    <a class="item" data-tab="inventory">Inventory</a>
-    <a class="item" data-tab="roleplay">Roleplay</a>
-  </nav>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+      <a class="item" data-tab="overview">Overview</a>
+      <a class="item" data-tab="heritage">Heritage</a>
+      <a class="item" data-tab="class">Class</a>
+      <a class="item" data-tab="inventory">Inventory</a>
+      <a class="item" data-tab="roleplay">Roleplay</a>
+    </nav>
+  </div>
 
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
+  {{!-- Scrollable Sheet Body --}}
+  <section class="sheet-body" id="character-tabs">
 
     {{!-- Overview Tab --}}
     <div class="tab overview" data-group="primary" data-tab="overview">

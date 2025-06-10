@@ -1,29 +1,29 @@
 <form class="duality-roll-dialog">
   <div class="form-group">
-    <label>Modifier</label>
-    <input type="number" name="modifier" value="{{modifier}}" />
+    <label for="modifier">Modifier:</label>
+    <input type="number" name="modifier" value="{{modifier}}" step="1" />
   </div>
   
   <div class="form-group">
-    <label>Difficulty</label>
-    <input type="number" name="difficulty" value="{{difficulty}}" />
+    <label for="difficulty">Difficulty:</label>
+    <input type="number" name="difficulty" value="{{difficulty}}" step="1" min="1" max="30" />
   </div>
   
   <div class="form-group">
-    <label>Hope to Spend</label>
-    <input type="number" name="hopeSpent" value="0" min="0" max="{{hopeAvailable}}" />
+    <label for="hopeSpent">Hope to Spend:</label>
+    <input type="number" name="hopeSpent" value="0" step="1" min="0" max="{{hopeAvailable}}" />
     <small>Available: {{hopeAvailable}}</small>
   </div>
   
   <div class="form-group">
-    <label>Flavor Text</label>
-    <input type="text" name="flavor" value="{{flavor}}" placeholder="Describe the action..."/>
+    <label for="flavor">Flavor Text:</label>
+    <input type="text" name="flavor" value="{{flavor}}" placeholder="Optional description..." />
   </div>
   
   <div class="form-group">
     <label>
-      <input type="checkbox" name="blindRoll" />
-      Blind Roll (GM only)
+      <input type="checkbox" name="blindRoll" value="true" />
+      Private GM Roll
     </label>
   </div>
 </form> 

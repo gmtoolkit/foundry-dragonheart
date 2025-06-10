@@ -22,8 +22,11 @@ export class DualityDice {
     } = options;
 
     // Roll two d12s
-    const hopeDie = new Roll("1d12").evaluateSync();
-    const fearDie = new Roll("1d12").evaluateSync();
+    const hopeDie = new Roll("1d12");
+    const fearDie = new Roll("1d12");
+    
+    await hopeDie.evaluate();
+    await fearDie.evaluate();
 
     const hopeRaw = hopeDie.total;
     const fearRaw = fearDie.total;
@@ -204,14 +207,14 @@ export class DualityDice {
    */
   static _processDialogForm(html) {
     const form = html[0].querySelector("form");
-    const formData = new FormDataExtended(form);
-    const data = formData.object;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-    return this.roll(data.modifier, {
-      difficulty: data.difficulty,
-      hopeSpent: data.hopeSpent || 0,
-      flavor: data.flavor,
-      blindRoll: data.blindRoll || false
+    return this.roll(parseInt(data.modifier) || 0, {
+      difficulty: parseInt(data.difficulty) || 12,
+      hopeSpent: parseInt(data.hopeSpent) || 0,
+      flavor: data.flavor || "",
+      blindRoll: data.blindRoll === "true"
     });
   }
 

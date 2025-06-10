@@ -3,7 +3,12 @@
     <img src="{{item.img}}" width="36" height="36" />
     <div class="card-title">
       <h4>{{item.name}}</h4>
-      <div class="item-type">{{capitalize item.type}}</div>
+      <div class="card-meta">
+        <div class="item-type">{{capitalize item.type}}</div>
+        {{#if data.tier}}
+          <span class="tier">Tier {{data.tier}}</span>
+        {{/if}}
+      </div>
     </div>
   </div>
 
@@ -11,9 +16,11 @@
     {{{data.description}}}
   </div>
 
-  <div class="card-properties">
-    {{#each data.properties as |prop|}}
-      <span class="property">{{prop}}</span>
-    {{/each}}
-  </div>
+  {{#if data.properties}}
+    <div class="card-properties">
+      {{#each data.properties}}
+        <span class="property">{{this}}</span>
+      {{/each}}
+    </div>
+  {{/if}}
 </div> 
