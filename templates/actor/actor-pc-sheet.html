@@ -1,47 +1,46 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Compact Header Section --}}
-  <div class="sheet-header-container compact">
-    {{!-- Compact Sheet Header --}}
-    <header class="sheet-header compact">
-      <img class="profile-img compact" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="60" width="60"/>
-      <div class="header-fields compact">
-        <h1 class="charname compact"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
-        <div class="resources compact flexrow">
-          <div class="resource compact">
-            <label class="resource-label compact">HP</label>
-            <div class="resource-content compact">
+  {{!-- Header Section --}}
+  <div class="sheet-header-container">
+    <header class="sheet-header">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="80" width="80"/>
+      <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
+        <div class="resources flexrow">
+          <div class="resource">
+            <label class="resource-label">HP</label>
+            <div class="resource-content">
               <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
               <span>/</span>
               <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
             </div>
           </div>
-          <div class="resource compact">
-            <label class="resource-label compact">Stress</label>
-            <div class="resource-content compact">
+          <div class="resource">
+            <label class="resource-label">Stress</label>
+            <div class="resource-content">
               <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
               <span>/</span>
               <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
             </div>
           </div>
-          <div class="resource compact">
-            <label class="resource-label compact">Hope</label>
-            <div class="resource-content compact">
+          <div class="resource">
+            <label class="resource-label">Hope</label>
+            <div class="resource-content">
               <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
               <span>/</span>
               <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
             </div>
-            <div class="hope-controls compact">
-              <button type="button" class="hope-spend compact" data-amount="1" title="Spend Hope">-</button>
-              <button type="button" class="hope-gain compact" data-amount="1" title="Gain Hope">+</button>
+            <div class="hope-controls">
+              <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">-</button>
+              <button type="button" class="hope-gain" data-amount="1" title="Gain Hope">+</button>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    {{!-- Compact Tab Navigation --}}
-    <nav class="sheet-tabs tabs compact" data-group="primary">
+    {{!-- Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
       <a class="item" data-tab="overview">Overview</a>
       <a class="item" data-tab="heritage">Heritage</a>
       <a class="item" data-tab="class">Class</a>
@@ -50,256 +49,150 @@
     </nav>
   </div>
 
-  {{!-- Scrollable Sheet Body --}}
+  {{!-- Sheet Body --}}
   <section class="sheet-body" id="character-tabs">
 
     {{!-- Overview Tab --}}
     <div class="tab overview" data-group="primary" data-tab="overview">
-      <div class="character-sheet-layout">
-        
-        {{!-- Top Section: Character Info --}}
-        <div class="character-info-section">
-          <div class="basic-info">
-            <div class="info-field">
-              <label>Name</label>
-              <input type="text" name="name" value="{{actor.name}}" placeholder="Character Name"/>
-            </div>
-            <div class="info-field">
-              <label>Heritage</label>
-              <input type="text" name="system.heritage" value="{{system.heritage}}" placeholder="Heritage"/>
-            </div>
-            <div class="info-field">
-              <label>Subclass</label>
-              <input type="text" name="system.subclass" value="{{system.subclass}}" placeholder="Subclass"/>
-            </div>
-            <div class="info-field">
-              <label>Pronouns</label>
-              <input type="text" name="system.pronouns" value="{{system.pronouns}}" placeholder="Pronouns"/>
-            </div>
-          </div>
-          <div class="level-section">
-            <div class="level-badge">
-              <label>Level</label>
-              <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number"/>
-            </div>
-          </div>
+      
+      {{!-- Character Info Row --}}
+      <div class="character-info">
+        <div class="info-group">
+          <label>Heritage:</label>
+          <input type="text" name="system.heritage" value="{{system.heritage}}" placeholder="Heritage"/>
         </div>
+        <div class="info-group">
+          <label>Subclass:</label>
+          <input type="text" name="system.subclass" value="{{system.subclass}}" placeholder="Subclass"/>
+        </div>
+        <div class="info-group">
+          <label>Level:</label>
+          <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number"/>
+        </div>
+      </div>
 
-        {{!-- Ability Scores Section --}}
-        <div class="abilities-section-pro">
-          <h3 class="section-header">Ability Scores</h3>
-          <div class="abilities-grid">
-            {{#each system.traits as |trait key|}}
-              <div class="ability-card">
-                <div class="ability-name">{{capitalize key}}</div>
-                <div class="ability-circle">
-                  <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number" class="ability-score"/>
+      {{!-- Ability Scores --}}
+      <div class="abilities-section">
+        <h3>Ability Scores</h3>
+        <div class="abilities-grid">
+          {{#each system.traits as |trait key|}}
+            <div class="ability-box">
+              <div class="ability-name">{{capitalize key}}</div>
+              <div class="ability-score">
+                <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number"/>
+              </div>
+              <div class="ability-modifier">{{numberFormat trait.mod decimals=0 sign=true}}</div>
+              <button type="button" class="ability-roll rollable" data-roll-type="trait" data-trait="{{key}}" title="Roll {{capitalize key}}">
+                <i class="fas fa-dice-d20"></i>
+              </button>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Two Column Layout --}}
+      <div class="overview-columns">
+        <div class="left-col">
+          
+          {{!-- Defense --}}
+          <div class="defense-box">
+            <h4>Defense</h4>
+            <div class="defense-line">
+              <label>Evasion:</label>
+              <span>{{system.derived.evasion.value}}</span>
+            </div>
+          </div>
+
+          {{!-- Health Tracking --}}
+          <div class="health-box">
+            <h4>Health & Damage</h4>
+            <div class="health-tracks">
+              <div class="damage-track">
+                <label>Minor (1 HP):</label>
+                <div class="track-boxes">
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
                 </div>
-                <div class="ability-actions">
-                  <div class="ability-action">Sprint</div>
-                  <div class="ability-action">Leap</div>
-                  <div class="ability-action">Maneuver</div>
+              </div>
+              <div class="damage-track">
+                <label>Major (2 HP):</label>
+                <div class="track-boxes">
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
                 </div>
-                <div class="ability-modifier">{{numberFormat trait.mod decimals=0 sign=true}}</div>
-                <button type="button" class="ability-roll rollable" data-roll-type="trait" data-trait="{{key}}" title="Roll {{capitalize key}}">
-                  <i class="fas fa-dice-d20"></i>
-                </button>
+              </div>
+              <div class="damage-track">
+                <label>Severe (3 HP):</label>
+                <div class="track-boxes">
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                </div>
+              </div>
+              <div class="stress-track">
+                <label>Stress:</label>
+                <div class="track-boxes">
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                  <div class="track-box"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="right-col">
+          
+          {{!-- Hope Tracking --}}
+          <div class="hope-box">
+            <h4>Hope</h4>
+            <p>Spend a Hope to use an experience or help an ally.</p>
+            <div class="hope-track">
+              <div class="hope-diamond"></div>
+              <div class="hope-diamond"></div>
+              <div class="hope-diamond"></div>
+              <div class="hope-diamond"></div>
+              <div class="hope-diamond"></div>
+              <div class="hope-diamond"></div>
+            </div>
+          </div>
+
+          {{!-- Experience --}}
+          <div class="experience-box">
+            <h4>Experience</h4>
+            {{#each features as |experience|}}
+              <div class="experience-line">
+                <input type="text" value="{{experience.name}}" class="experience-name"/>
+                <span class="experience-bonus">+{{experience.system.modifier}}</span>
               </div>
             {{/each}}
-          </div>
-        </div>
-
-        {{!-- Main Content Grid --}}
-        <div class="main-content-grid">
-          
-          {{!-- Left Column --}}
-          <div class="left-column">
-            
-            {{!-- Evasion & Armor --}}
-            <div class="defense-section">
-              <div class="evasion-box">
-                <h4>Evasion</h4>
-                <div class="defense-value">{{system.derived.evasion.value}}</div>
-                <div class="defense-note">Start at 10</div>
+            {{#unless features}}
+              <div class="experience-line">
+                <input type="text" placeholder="Experience" class="experience-name"/>
+                <span class="experience-bonus">+0</span>
               </div>
-              <div class="armor-box">
-                <h4>Armor</h4>
-                <div class="armor-slots">
-                  {{#each gear as |item|}}
-                    {{#if (and item.system.equipped (eq item.system.equipmentType "armor"))}}
-                      <div class="armor-item">{{item.system.armor}}</div>
-                    {{/if}}
-                  {{/each}}
-                </div>
+              <div class="experience-line">
+                <input type="text" placeholder="Experience" class="experience-name"/>
+                <span class="experience-bonus">+0</span>
               </div>
-            </div>
-
-            {{!-- Damage & Health --}}
-            <div class="health-section">
-              <h3 class="section-header">Damage & Health</h3>
-              <div class="damage-track">
-                <div class="damage-level">
-                  <h4>Minor Damage</h4>
-                  <div class="damage-note">Mark 1 HP</div>
-                  <div class="hp-track minor">
-                    {{#times 6}}
-                      <div class="hp-box"></div>
-                    {{/times}}
-                  </div>
-                </div>
-                <div class="damage-level">
-                  <h4>Major Damage</h4>
-                  <div class="damage-note">Mark 2 HP</div>
-                  <div class="hp-track major">
-                    {{#times 6}}
-                      <div class="hp-box"></div>
-                    {{/times}}
-                  </div>
-                </div>
-                <div class="damage-level">
-                  <h4>Severe Damage</h4>
-                  <div class="damage-note">Mark 3 HP</div>
-                  <div class="hp-track severe">
-                    {{#times 6}}
-                      <div class="hp-box"></div>
-                    {{/times}}
-                  </div>
-                </div>
-              </div>
-              
-              <div class="stress-section">
-                <h4>Stress</h4>
-                <div class="stress-track">
-                  {{#times 6}}
-                    <div class="stress-box"></div>
-                  {{/times}}
-                </div>
-              </div>
-            </div>
-
-            {{!-- Hope Section --}}
-            <div class="hope-section">
-              <h3 class="section-header">Hope</h3>
-              <div class="hope-note">Spend a Hope to use an experience or help an ally.</div>
-              <div class="hope-track">
-                {{#times 6}}
-                  <div class="hope-diamond"></div>
-                {{/times}}
-              </div>
-              <div class="hope-ability">
-                <strong>Make a Scene:</strong> Spend 3 Hope to temporarily <em>Distract</em> a target within Close range, giving them a -2 penalty to their Difficulty.
-              </div>
-            </div>
-
-            {{!-- Experience Section --}}
-            <div class="experience-section">
-              <h3 class="section-header">Experience</h3>
-              <div class="experience-list">
-                {{#each features as |experience|}}
-                  <div class="experience-item">
-                    <input type="text" value="{{experience.name}}" class="experience-name"/>
-                    <div class="experience-bonus">+{{experience.system.modifier}}</div>
-                  </div>
-                {{/each}}
-                {{#unless features}}
-                  {{#times 5}}
-                    <div class="experience-item">
-                      <input type="text" placeholder="Experience" class="experience-name"/>
-                      <div class="experience-bonus">+0</div>
-                    </div>
-                  {{/times}}
-                {{/unless}}
-              </div>
-            </div>
-
+            {{/unless}}
           </div>
 
-          {{!-- Right Column --}}
-          <div class="right-column">
-            
-            {{!-- Active Weapons --}}
-            <div class="weapons-section">
-              <h3 class="section-header">Active Weapons</h3>
-              <div class="proficiency-track">
-                <label>Proficiency</label>
-                <div class="proficiency-circles">
-                  {{#times 6}}
-                    <div class="proficiency-circle"></div>
-                  {{/times}}
-                </div>
-              </div>
-              
-              <div class="weapon-slots">
-                <div class="weapon-slot primary">
-                  <h4>Primary</h4>
-                  <div class="weapon-fields">
-                    <input type="text" placeholder="Name" class="weapon-name"/>
-                    <input type="text" placeholder="Trait & Range" class="weapon-trait"/>
-                    <input type="text" placeholder="Damage Dice & Type" class="weapon-damage"/>
-                  </div>
-                  <div class="weapon-feature">
-                    <textarea placeholder="Feature"></textarea>
-                  </div>
-                </div>
-
-                <div class="weapon-slot secondary">
-                  <h4>Secondary</h4>
-                  <div class="weapon-fields">
-                    <input type="text" placeholder="Name" class="weapon-name"/>
-                    <input type="text" placeholder="Trait & Range" class="weapon-trait"/>
-                    <input type="text" placeholder="Damage Dice & Type" class="weapon-damage"/>
-                  </div>
-                  <div class="weapon-feature">
-                    <textarea placeholder="Feature"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {{!-- Active Armor --}}
-            <div class="armor-section">
-              <h3 class="section-header">Active Armor</h3>
-              <div class="armor-slot">
-                <div class="armor-fields">
-                  <input type="text" placeholder="Name" class="armor-name"/>
-                  <input type="text" placeholder="Base Thresholds" class="armor-thresholds"/>
-                  <input type="text" placeholder="Base Score" class="armor-score"/>
-                </div>
-                <div class="armor-feature">
-                  <textarea placeholder="Feature"></textarea>
-                </div>
-              </div>
-            </div>
-
-            {{!-- Inventory --}}
-            <div class="inventory-section-compact">
-              <h3 class="section-header">Inventory</h3>
-              <div class="inventory-grid">
-                <div class="inventory-lines">
-                  {{#times 8}}
-                    <input type="text" placeholder="Item" class="inventory-line"/>
-                  {{/times}}
-                </div>
-              </div>
-              
-              <div class="inventory-weapons">
-                <h4>Inventory Weapons</h4>
-                {{#times 2}}
-                  <div class="inventory-weapon">
-                    <input type="text" placeholder="Name" class="weapon-name"/>
-                    <input type="text" placeholder="Trait & Range" class="weapon-trait"/>
-                    <input type="text" placeholder="Damage Dice & Type" class="weapon-damage"/>
-                    <div class="weapon-checkboxes">
-                      <label><input type="checkbox"/> Primary</label>
-                      <label><input type="checkbox"/> Secondary</label>
-                    </div>
-                    <textarea placeholder="Feature" class="weapon-feature"></textarea>
-                  </div>
-                {{/times}}
-              </div>
-            </div>
-
-          </div>
         </div>
       </div>
     </div>
@@ -323,11 +216,6 @@
                 </button>
               </div>
               <div class="ancestry-description">{{{ancestry.system.description}}}</div>
-              {{#each ancestry.system.features as |feature|}}
-                <div class="feature">
-                  <strong>{{feature.name}}:</strong> {{feature.description}}
-                </div>
-              {{/each}}
             </div>
           {{else}}
             <div class="no-ancestry">
@@ -352,9 +240,6 @@
                 </button>
               </div>
               <div class="community-description">{{{community.system.description}}}</div>
-              <div class="feature">
-                <strong>Community Feature:</strong> {{community.system.feature}}
-              </div>
             </div>
           {{else}}
             <div class="no-community">
@@ -383,58 +268,12 @@
                   <i class="fas fa-times"></i>
                 </button>
               </div>
-              {{#if (eq cls.type "class")}}
-                <div class="class-details">
-                  <p><strong>Level:</strong> {{cls.system.level}}</p>
-                  <p><strong>HP Bonus:</strong> +{{cls.system.hpBonus}}</p>
-                  <p><strong>Evasion Bonus:</strong> +{{cls.system.evasionBonus}}</p>
-                  {{#if cls.system.classItem}}
-                    <p><strong>Class Item:</strong> {{cls.system.classItem}}</p>
-                  {{/if}}
-                  {{#if cls.system.hopeFeature}}
-                    <div class="hope-feature">
-                      <strong>Hope Feature:</strong> {{cls.system.hopeFeature}}
-                    </div>
-                  {{/if}}
-                  {{#if cls.system.coreFeature}}
-                    <div class="core-feature">
-                      <strong>Core Feature:</strong> {{cls.system.coreFeature}}
-                    </div>
-                  {{/if}}
-                </div>
-              {{else}}
-                <div class="subclass-details">
-                  <p><strong>Type:</strong> Subclass</p>
-                  {{#if cls.system.spellcastingTrait}}
-                    <p><strong>Spellcasting Trait:</strong> {{cls.system.spellcastingTrait}}</p>
-                  {{/if}}
-                  {{#if cls.system.foundationFeature}}
-                    <div class="foundation-feature">
-                      <strong>Foundation:</strong> {{cls.system.foundationFeature}}
-                    </div>
-                  {{/if}}
-                  {{#if cls.system.specializationFeature}}
-                    <div class="specialization-feature">
-                      <strong>Specialization:</strong> {{cls.system.specializationFeature}}
-                    </div>
-                  {{/if}}
-                  {{#if cls.system.masteryFeature}}
-                    <div class="mastery-feature">
-                      <strong>Mastery:</strong> {{cls.system.masteryFeature}}
-                    </div>
-                  {{/if}}
-                </div>
-              {{/if}}
               <div class="class-description">{{{cls.system.description}}}</div>
             </div>
           {{/each}}
         {{else}}
           <p>No class selected. Click "Browse Classes" to choose from the compendium.</p>
         {{/if}}
-      </div>
-
-      <div class="domain-cards">
-        {{> "systems/daggerheart/templates/actor/parts/actor-loadout.html"}}
       </div>
     </div>
 
