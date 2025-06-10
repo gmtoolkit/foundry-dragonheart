@@ -34,14 +34,14 @@ Hooks.once("init", async function() {
   CONFIG.Item.documentClass = DaggerheartItem;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("daggerheart", DaggerheartActorSheet, {
+  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet("daggerheart", DaggerheartActorSheet, {
     types: ["pc", "npc"],
     makeDefault: true
   });
   
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("daggerheart", DaggerheartItemSheet, {
+  foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet("daggerheart", DaggerheartItemSheet, {
     types: ["class", "subclass", "ancestry", "community", "domain-card", "equipment", "experience"],
     makeDefault: true
   });
@@ -61,7 +61,7 @@ Hooks.once("init", async function() {
 /* -------------------------------------------- */
 
 async function preloadHandlebarsTemplates() {
-  return loadTemplates([
+  return foundry.applications.handlebars.loadTemplates([
     // Actor partials
     "systems/daggerheart/templates/actor/parts/actor-traits.html",
     "systems/daggerheart/templates/actor/parts/actor-equipment.html",
@@ -127,6 +127,11 @@ function registerHandlebarsHelpers() {
 
   Handlebars.registerHelper('add', function(a, b) {
     return a + b;
+  });
+
+  Handlebars.registerHelper('capitalize', function(str) {
+    if (typeof str !== 'string') return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
   });
 }
 

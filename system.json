@@ -14,9 +14,6 @@
   "esmodules": [
     "scripts/main.js"
   ],
-  "scripts": [
-    "scripts/init.js"
-  ],
   "styles": [
     "styles/daggerheart.css"
   ],
