@@ -175,6 +175,24 @@ export class DaggerheartActorSheet extends foundry.appv1.sheets.ActorSheet {
       if (item) item.roll();
     });
 
+    // Weapon attacks
+    html.find('.item-attack').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      if (item && item.type === 'equipment' && item.system.equipmentType === 'weapon') {
+        this._onWeaponAttack(item);
+      }
+    });
+
+    // Weapon damage
+    html.find('.item-damage').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      if (item && item.type === 'equipment' && item.system.equipmentType === 'weapon') {
+        this._onWeaponDamage(item);
+      }
+    });
+
     // Equipment toggles
     html.find('.item-toggle').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
@@ -344,6 +362,69 @@ export class DaggerheartActorSheet extends foundry.appv1.sheets.ActorSheet {
     await this.actor.clearStress();
     
     ui.notifications.info("Long rest completed! All stress cleared. You may reorganize your entire loadout.");
+  }
+
+  /**
+   * Handle weapon attacks
+   * @param {Object} weapon   The weapon item
+   * @private
+   */
+  async _onWeaponAttack(weapon) {
+    if (!weapon) return;
+
+    // Determine trait modifier for weapon
+    let traitMod = 0;
+    const weaponData = weapon.system;
+    
+    // In Daggerheart, weapons typically use specific traits
+    // For now, we'll use a basic modifier system
+    if (weaponData.trait) {
+      traitMod = this.actor.system.traits[weaponData.trait] || 0;
+    }
+
+    // Roll duality dice for attack
+    const { DualityDice } = await import("../dice/duality-dice.js");
+    return DualityDice.roll(traitMod, {
+      flavor: `${weapon.name} Attack`,
+      attackData: {
+        weapon: weapon.name,
+        damage: weaponData.damage,
+        tier: weaponData.tier
+      }
+    });
+  }
+
+  /**
+   * Handle weapon damage rolls
+   * @param {Object} weapon   The weapon item
+   * @private
+   */
+  async _onWeaponDamage(weapon) {
+    if (!weapon) return;
+
+    const weaponData = weapon.system;
+    let damageFormula = weaponData.damage;
+    
+    if (!damageFormula) {
+      ui.notifications.warn("This weapon has no damage value set.");
+      return;
+    }
+
+    // Ensure the formula is valid
+    if (!damageFormula.includes('d')) {
+      damageFormula = `${damageFormula}d6`;
+    }
+
+    const roll = new Roll(damageFormula);
+    await roll.evaluate();
+
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      flavor: `${weapon.name} Damage`,
+      rollMode: game.settings.get("core", "rollMode")
+    });
+
+    return roll;
   }
 
   /**

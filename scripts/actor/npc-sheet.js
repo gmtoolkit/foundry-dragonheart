@@ -61,6 +61,12 @@ export class DaggerheartNPCSheet extends foundry.appv1.sheets.ActorSheet {
 
     // Trait rolls
     html.find('.trait-roll').click(this._onTraitRoll.bind(this));
+
+    // Attack rolls
+    html.find('.attack-roll').click(this._onAttackRoll.bind(this));
+
+    // Damage rolls
+    html.find('.damage-roll').click(this._onDamageRoll.bind(this));
   }
 
   /**
@@ -120,5 +126,61 @@ export class DaggerheartNPCSheet extends foundry.appv1.sheets.ActorSheet {
         flavor: `${traitKey.charAt(0).toUpperCase() + traitKey.slice(1)} Check (${this.actor.name})`
       });
     }
+  }
+
+  /**
+   * Handle attack rolls
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onAttackRoll(event) {
+    event.preventDefault();
+    const index = parseInt(event.currentTarget.dataset.index);
+    const attack = this.actor.system.attacks[index];
+    
+    if (!attack) return;
+
+    // Roll duality dice for attack
+    const { DualityDice } = await import("../dice/duality-dice.js");
+    return DualityDice.roll(0, {
+      flavor: `${attack.name} Attack (${this.actor.name})`,
+      attackData: {
+        name: attack.name,
+        range: attack.range,
+        damage: attack.damage,
+        type: attack.type
+      }
+    });
+  }
+
+  /**
+   * Handle damage rolls
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onDamageRoll(event) {
+    event.preventDefault();
+    const index = parseInt(event.currentTarget.dataset.index);
+    const attack = this.actor.system.attacks[index];
+    
+    if (!attack) return;
+
+    // Parse and roll damage
+    let damageFormula = attack.damage;
+    if (!damageFormula.includes('d')) {
+      // If it's just a number, make it a d6
+      damageFormula = `${damageFormula}d6`;
+    }
+
+    const roll = new Roll(damageFormula);
+    await roll.evaluate();
+
+    roll.toMessage({
+      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      flavor: `${attack.name} Damage (${attack.type})`,
+      rollMode: game.settings.get("core", "rollMode")
+    });
+
+    return roll;
   }
 } 

@@ -78,6 +78,32 @@
       </div>
     </div>
 
+    {{!-- Attacks --}}
+    <div class="npc-attacks">
+      <h3>Attacks</h3>
+      <div class="attacks-list">
+        {{#each system.attacks as |attack index|}}
+          <div class="attack-item flexrow">
+            <div class="attack-info">
+              <h4 class="attack-name">{{attack.name}}</h4>
+              <div class="attack-details">
+                <span class="attack-range">{{capitalize attack.range}}</span>
+                <span class="attack-damage">{{attack.damage}} {{attack.type}}</span>
+              </div>
+            </div>
+            <div class="attack-controls">
+              <button type="button" class="attack-roll" data-index="{{index}}" title="Roll Attack">
+                <i class="fas fa-dice-d20"></i> Attack
+              </button>
+              <button type="button" class="damage-roll" data-index="{{index}}" title="Roll Damage">
+                <i class="fas fa-sword"></i> Damage
+              </button>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
     {{!-- Abilities --}}
     <div class="npc-abilities">
       <h3>Abilities</h3>

@@ -1053,7 +1053,8 @@
 }
 
 .daggerheart.npc .npc-stats,
-.daggerheart.npc .abilities-list {
+.daggerheart.npc .abilities-list,
+.daggerheart.npc .attacks-list {
   margin: 1rem 0;
 }
 
@@ -1070,6 +1071,84 @@
   border: none;
   font-weight: 600;
   color: var(--dh-text-dark);
+}
+
+/* Attack Items */
+.daggerheart.npc .attack-item {
+  background: var(--dh-surface);
+  border: 2px solid var(--dh-border);
+  border-radius: var(--dh-radius-lg);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--dh-shadow-sm);
+}
+
+.daggerheart.npc .attack-item:hover {
+  border-color: var(--dh-border-blue);
+  box-shadow: var(--dh-shadow-md);
+  transform: translateY(-1px);
+}
+
+.daggerheart.npc .attack-info {
+  flex: 1;
+}
+
+.daggerheart.npc .attack-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--dh-secondary-blue);
+}
+
+.daggerheart.npc .attack-details {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.daggerheart.npc .attack-range,
+.daggerheart.npc .attack-damage {
+  background: var(--dh-pale-blue);
+  color: var(--dh-secondary-blue);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--dh-radius-sm);
+  font-weight: 500;
+}
+
+.daggerheart.npc .attack-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.daggerheart.npc .attack-roll,
+.daggerheart.npc .damage-roll {
+  background: linear-gradient(135deg, var(--dh-primary-blue), var(--dh-secondary-blue));
+  color: var(--dh-text-white);
+  border: none;
+  border-radius: var(--dh-radius-md);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--dh-shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.daggerheart.npc .attack-roll:hover,
+.daggerheart.npc .damage-roll:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--dh-shadow-md);
+}
+
+.daggerheart.npc .damage-roll {
+  background: linear-gradient(135deg, var(--dh-danger-red), #dc2626);
 }
 
 /* =================== 
