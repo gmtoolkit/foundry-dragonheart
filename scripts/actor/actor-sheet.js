@@ -8,8 +8,8 @@ export class DaggerheartActorSheet extends foundry.appv1.sheets.ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["daggerheart", "sheet", "actor"],
-      width: 800,
-      height: 750,
+      width: 680,
+      height: 600,
       resizable: true,
       scrollY: [],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "overview" }],

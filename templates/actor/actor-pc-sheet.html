@@ -1,57 +1,47 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Fixed Header Section --}}
-  <div class="sheet-header-container">
-    {{!-- Sheet Header --}}
-    <header class="sheet-header">
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="header-fields">
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
-        <div class="resources flexrow">
-          <div class="resource">
-            <label for="system.health.value" class="resource-label">Hit Points</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <span class="resource-sublabel">Current</span>
+  {{!-- Compact Header Section --}}
+  <div class="sheet-header-container compact">
+    {{!-- Compact Sheet Header --}}
+    <header class="sheet-header compact">
+      <img class="profile-img compact" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="60" width="60"/>
+      <div class="header-fields compact">
+        <h1 class="charname compact"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
+        <div class="resources compact flexrow">
+          <div class="resource compact">
+            <label class="resource-label compact">HP</label>
+            <div class="resource-content compact">
               <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
-              <span> / </span>
+              <span>/</span>
               <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
-              <span class="resource-sublabel">Max</span>
             </div>
           </div>
-          <div class="resource">
-            <label for="system.stress.value" class="resource-label">Stress</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <span class="resource-sublabel">Current</span>
+          <div class="resource compact">
+            <label class="resource-label compact">Stress</label>
+            <div class="resource-content compact">
               <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
-              <span> / </span>
+              <span>/</span>
               <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
-              <span class="resource-sublabel">Max</span>
             </div>
           </div>
-          <div class="resource">
-            <label for="system.derived.hope.value" class="resource-label">Hope</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <span class="resource-sublabel">Current</span>
+          <div class="resource compact">
+            <label class="resource-label compact">Hope</label>
+            <div class="resource-content compact">
               <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
-              <span> / </span>
+              <span>/</span>
               <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
-              <span class="resource-sublabel">Max</span>
             </div>
-            <div class="hope-controls flexrow">
-              <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">
-                <i class="fas fa-minus"></i> Spend
-              </button>
-              <button type="button" class="hope-gain" data-amount="1" title="Gain Hope">
-                <i class="fas fa-plus"></i> Gain
-              </button>
+            <div class="hope-controls compact">
+              <button type="button" class="hope-spend compact" data-amount="1" title="Spend Hope">-</button>
+              <button type="button" class="hope-gain compact" data-amount="1" title="Gain Hope">+</button>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Compact Tab Navigation --}}
+    <nav class="sheet-tabs tabs compact" data-group="primary">
       <a class="item" data-tab="overview">Overview</a>
       <a class="item" data-tab="heritage">Heritage</a>
       <a class="item" data-tab="class">Class</a>
@@ -65,93 +55,79 @@
 
     {{!-- Overview Tab --}}
     <div class="tab overview" data-group="primary" data-tab="overview">
-      <div class="overview-grid">
-        {{!-- Left Column: Traits and Abilities --}}
-        <div class="left-column">
-          <div class="traits-section">
-            <h4>Ability Scores</h4>
-            {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
-          </div>
-          
-          <div class="derived-stats-compact">
-            <h4>Derived Stats</h4>
-            <div class="stats-row">
-              <div class="stat-compact">
+      <div class="overview-compact">
+        {{!-- Left Column: Traits --}}
+        <div class="traits-column">
+          <h4 class="section-title">Ability Scores</h4>
+          {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
+        </div>
+
+        {{!-- Middle Column: Derived Stats & Character Info --}}
+        <div class="middle-column">
+          <div class="stats-section">
+            <h4 class="section-title">Derived Stats</h4>
+            <div class="derived-compact">
+              <div class="stat-line">
                 <label class="stat-label rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
-                <div class="stat-value">{{system.derived.evasion.value}}</div>
+                <span class="stat-value">{{system.derived.evasion.value}}</span>
               </div>
-              <div class="stat-compact">
+              <div class="stat-line">
                 <label class="stat-label">Proficiency</label>
-                <div class="stat-value">{{system.derived.proficiency.value}}</div>
+                <span class="stat-value">{{system.derived.proficiency.value}}</span>
               </div>
             </div>
           </div>
 
-          <div class="character-basics">
-            <h4>Character Info</h4>
-            <div class="basics-grid">
-              <div class="basic-field">
+          <div class="character-info">
+            <h4 class="section-title">Character</h4>
+            <div class="info-compact">
+              <div class="info-line">
                 <label>Level</label>
                 <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number"/>
               </div>
-              <div class="basic-field">
+              <div class="info-line">
                 <label>Experience</label>
                 <input type="number" name="system.experience" value="{{system.experience}}" data-dtype="Number"/>
               </div>
             </div>
           </div>
-        </div>
 
-        {{!-- Right Column: Actions and Management --}}
-        <div class="right-column">
-          <div class="action-controls">
-            <h4>Actions</h4>
-            <div class="control-group">
-              <label>Rest</label>
-              <div class="button-row">
-                <button type="button" class="short-rest">Short Rest</button>
-                <button type="button" class="long-rest">Long Rest</button>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label>Stress Management</label>
-              <div class="button-row">
-                <button type="button" class="stress-add" data-amount="1">+1 Stress</button>
-                <button type="button" class="stress-clear" data-amount="1">-1 Stress</button>
-                <button type="button" class="stress-clear">Clear All</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="quick-heritage">
-            <h4>Heritage Summary</h4>
-            <div class="heritage-summary">
+          <div class="heritage-compact">
+            <h4 class="section-title">Heritage</h4>
+            <div class="heritage-lines">
               {{#if ancestry}}
-                <div class="heritage-item">
-                  <strong>Ancestry:</strong> {{ancestry.name}}
-                </div>
+                <div class="heritage-line"><strong>Ancestry:</strong> {{ancestry.name}}</div>
               {{else}}
-                <div class="heritage-missing">No ancestry selected</div>
+                <div class="heritage-line missing">No ancestry selected</div>
               {{/if}}
               
               {{#if community}}
-                <div class="heritage-item">
-                  <strong>Community:</strong> {{community.name}}
-                </div>
+                <div class="heritage-line"><strong>Community:</strong> {{community.name}}</div>
               {{else}}
-                <div class="heritage-missing">No community selected</div>
+                <div class="heritage-line missing">No community selected</div>
               {{/if}}
 
               {{#if classes}}
                 {{#each classes as |cls|}}
-                  <div class="heritage-item">
-                    <strong>{{#if (eq cls.type "class")}}Class{{else}}Subclass{{/if}}:</strong> {{cls.name}}
-                  </div>
+                  <div class="heritage-line"><strong>{{#if (eq cls.type "class")}}Class{{else}}Subclass{{/if}}:</strong> {{cls.name}}</div>
                 {{/each}}
               {{else}}
-                <div class="heritage-missing">No class selected</div>
+                <div class="heritage-line missing">No class selected</div>
               {{/if}}
+            </div>
+          </div>
+        </div>
+
+        {{!-- Right Column: Actions --}}
+        <div class="actions-column">
+          <div class="actions-section">
+            <h4 class="section-title">Actions</h4>
+            <div class="action-buttons">
+              <button type="button" class="action-btn short-rest">Short Rest</button>
+              <button type="button" class="action-btn long-rest">Long Rest</button>
+              <button type="button" class="action-btn stress-add" data-amount="1">+1 Stress</button>
+              <button type="button" class="action-btn stress-clear" data-amount="1">-1 Stress</button>
+              <button type="button" class="action-btn stress-clear">Clear Stress</button>
             </div>
           </div>
         </div>

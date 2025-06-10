@@ -1,61 +1,425 @@
-/* Character sheet resource labels and sublabels */
-.resource {
-  min-width: 120px;
+/* ===== COMPACT CHARACTER SHEET STYLING ===== */
+
+/* Overall sheet size reduction */
+.daggerheart.sheet.actor {
+  width: 680px !important;
+  height: 600px !important;
+  min-height: 600px;
 }
 
-.resource-sublabel {
+/* Compact header styling */
+.sheet-header-container.compact {
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, #5e72e4 0%, #4c63d2 100%);
+  color: white;
+  padding: 8px;
+  border-radius: 6px 6px 0 0;
+}
+
+.sheet-header.compact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.profile-img.compact {
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.header-fields.compact {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.charname.compact {
+  margin: 0;
+  font-size: 18px;
+}
+
+.charname.compact input {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.charname.compact input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Compact resources */
+.resources.compact {
+  display: flex;
+  gap: 8px;
+}
+
+.resource.compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 6px;
+  min-width: 80px;
+}
+
+.resource-label.compact {
   font-size: 10px;
-  color: #666;
-  margin: 0 4px;
-  white-space: nowrap;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  opacity: 0.9;
 }
 
-/* Section headers with browse buttons */
-.section-header {
+.resource-content.compact {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.resource-content.compact input {
+  width: 30px;
+  text-align: center;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 2px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.resource-content.compact span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.hope-controls.compact {
+  display: flex;
+  gap: 2px;
+}
+
+.hope-spend.compact,
+.hope-gain.compact {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 2px;
+  width: 20px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hope-spend.compact:hover,
+.hope-gain.compact:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* Compact tabs */
+.sheet-tabs.compact {
+  display: flex;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  padding: 0;
+}
+
+.sheet-tabs.compact .item {
+  flex: 1;
+  padding: 6px 8px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  background: #f8f9fa;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sheet-tabs.compact .item:last-child {
+  border-right: none;
+}
+
+.sheet-tabs.compact .item:hover {
+  background: #e9ecef;
+}
+
+.sheet-tabs.compact .item.active {
+  background: white;
+  color: #5e72e4;
+  font-weight: bold;
+}
+
+/* Compact sheet body */
+.sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  background: white;
+}
+
+/* Overview compact layout */
+.overview-compact {
+  display: grid;
+  grid-template-columns: 200px 1fr 140px;
+  gap: 12px;
+  height: 100%;
+}
+
+.traits-column,
+.middle-column,
+.actions-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Section titles */
+.section-title {
+  margin: 0 0 6px 0;
+  color: #5e72e4;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #5e72e4;
+  padding-bottom: 2px;
+}
+
+/* Ultra compact traits */
+.traits-compact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.trait-mini {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 6px;
+  text-align: center;
+  position: relative;
+}
+
+.trait-name {
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 3px;
+}
+
+.trait-score input {
+  width: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 2px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.trait-mod {
+  font-size: 11px;
+  font-weight: bold;
+  color: #5e72e4;
+  margin-bottom: 3px;
+}
+
+.trait-roll-mini {
+  background: #5e72e4;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Compact derived stats */
+.derived-compact {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.stat-line {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #5e72e4;
-  padding-bottom: 5px;
+  padding: 2px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.section-header h3 {
-  margin: 0;
+.stat-line:last-child {
+  border-bottom: none;
+}
+
+.stat-line .stat-label {
+  font-size: 11px;
+  color: #666;
+  cursor: pointer;
+}
+
+.stat-line .stat-value {
+  font-size: 12px;
+  font-weight: bold;
   color: #5e72e4;
 }
 
-/* Compendium browser buttons */
+/* Compact character info */
+.info-compact {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.info-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.info-line:last-child {
+  margin-bottom: 0;
+}
+
+.info-line label {
+  font-size: 11px;
+  color: #666;
+}
+
+.info-line input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 11px;
+}
+
+/* Compact heritage */
+.heritage-compact {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.heritage-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.heritage-line {
+  font-size: 11px;
+  padding: 2px 4px;
+  background: white;
+  border-radius: 2px;
+  border-left: 2px solid #5e72e4;
+}
+
+.heritage-line.missing {
+  border-left-color: #ffc107;
+  color: #856404;
+  background: #fff3cd;
+  font-style: italic;
+}
+
+/* Action buttons */
+.actions-section {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-btn {
+  padding: 4px 8px;
+  font-size: 10px;
+  border: 1px solid #5e72e4;
+  background: white;
+  color: #5e72e4;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: #5e72e4;
+  color: white;
+}
+
+/* Compendium browser and other buttons */
 .compendium-browser {
   background: #5e72e4;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 12px;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .compendium-browser:hover {
   background: #4c63d2;
 }
 
-.compendium-browser i {
-  margin-right: 4px;
-}
-
-/* Item headers with remove buttons */
-.item-header {
+.section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #5e72e4;
+}
+
+.section-header h3 {
+  margin: 0;
+  color: #5e72e4;
+  font-size: 14px;
+}
+
+/* Item headers and controls */
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
 }
 
 .item-header h4 {
   margin: 0;
   color: #5e72e4;
+  font-size: 13px;
 }
 
 .remove-item {
@@ -63,91 +427,240 @@
   color: white;
   border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.remove-item:hover {
-  background: #c82333;
-}
-
-/* Item create controls */
-.item-create-controls {
-  display: flex;
-  gap: 8px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-}
-
-.item-create-controls .compendium-browser,
-.item-create-controls .item-create {
-  flex: 1;
-  min-width: 120px;
-}
-
-/* More compact character sheet */
+/* Grid layouts */
 .grid.grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 12px;
 }
 
-/* Compact ancestry/community display */
+/* Feature displays */
+.ancestry-display,
+.community-display,
+.class-item {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+  background: #f8f9fa;
+  font-size: 12px;
+}
+
+.feature {
+  margin: 4px 0;
+  padding: 3px 6px;
+  background: white;
+  border-left: 2px solid #5e72e4;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+/* Scrollbar styling */
+.sheet-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sheet-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sheet-body::-webkit-scrollbar-thumb {
+  background: #5e72e4;
+  border-radius: 3px;
+}
+
+.sheet-body::-webkit-scrollbar-thumb:hover {
+  background: #4c63d2;
+}
+
+/* ===== COMPACT INVENTORY STYLING ===== */
+
+.inventory-section.compact {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.subsection-title {
+  margin: 0 0 6px 0;
+  color: #666;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 2px;
+}
+
+.equipment-section.compact,
+.inventory-items.compact {
+  margin-bottom: 10px;
+}
+
+.item-list.compact {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.item.compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  margin-bottom: 2px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+.item.compact:hover {
+  background: #f0f7ff;
+  border-color: #5e72e4;
+}
+
+.item-image.compact {
+  flex-shrink: 0;
+}
+
+.item-image.compact img {
+  border-radius: 2px;
+}
+
+.item-name.compact {
+  flex: 1;
+  margin: 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #333;
+}
+
+.item-type.compact,
+.item-tier.compact,
+.item-damage.compact,
+.item-quantity.compact,
+.item-weight.compact {
+  font-size: 10px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.item-tier.compact {
+  background: #5e72e4;
+  color: white;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.item-damage.compact {
+  background: #dc3545;
+  color: white;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.item-controls.compact {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.item-control.compact {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  color: #666;
+  font-size: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.item-control.compact:hover {
+  background: #5e72e4;
+  color: white;
+  border-color: #5e72e4;
+}
+
+.item-create-controls.compact {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.empty-slot.compact {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-style: italic;
+  font-size: 11px;
+}
+
+/* ===== COMPACT HERITAGE TAB ===== */
+
 .ancestry-display,
 .community-display {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
   background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 .ancestry-description,
 .community-description {
-  margin: 8px 0;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.feature {
+  font-size: 11px;
+  line-height: 1.3;
   margin: 6px 0;
-  padding: 4px 8px;
-  background: white;
-  border-left: 3px solid #5e72e4;
-  border-radius: 2px;
-  font-size: 13px;
 }
 
-/* No selection states */
 .no-ancestry,
 .no-community {
-  padding: 20px;
   text-align: center;
-  color: #666;
+  padding: 15px;
+  color: #999;
   font-style: italic;
+  font-size: 11px;
 }
 
-/* Class items */
+/* ===== COMPACT CLASS TAB ===== */
+
 .class-item {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 10px;
   background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 .class-details,
 .subclass-details {
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
 .class-details p,
 .subclass-details p {
-  margin: 4px 0;
-  font-size: 14px;
+  margin: 3px 0;
+  font-size: 11px;
+}
+
+.class-description {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-top: 6px;
 }
 
 .hope-feature,
@@ -155,249 +668,33 @@
 .foundation-feature,
 .specialization-feature,
 .mastery-feature {
-  margin: 6px 0;
-  padding: 6px 10px;
-  background: white;
-  border-left: 3px solid #5e72e4;
-  border-radius: 2px;
-  font-size: 13px;
-}
-
-/* Compact overview layout */
-.overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  height: 100%;
-}
-
-.left-column,
-.right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Compact sections */
-.traits-section,
-.derived-stats-compact,
-.character-basics,
-.action-controls,
-.quick-heritage {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px;
-  background: #f8f9fa;
-}
-
-.traits-section h4,
-.derived-stats-compact h4,
-.character-basics h4,
-.action-controls h4,
-.quick-heritage h4 {
-  margin: 0 0 10px 0;
-  color: #5e72e4;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid #5e72e4;
-  padding-bottom: 4px;
-}
-
-/* Compact stats row */
-.stats-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.stat-compact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px;
-  background: white;
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
-}
-
-.stat-compact .stat-label {
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-  color: #666;
-}
-
-.stat-compact .stat-value {
-  font-size: 18px;
-  font-weight: bold;
-  color: #5e72e4;
-}
-
-/* Character basics grid */
-.basics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.basic-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.basic-field label {
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 2px;
-  color: #666;
-}
-
-.basic-field input {
+  margin: 4px 0;
   padding: 4px 6px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  text-align: center;
-}
-
-/* Control groups */
-.control-group {
-  margin-bottom: 12px;
-}
-
-.control-group:last-child {
-  margin-bottom: 0;
-}
-
-.control-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #666;
-}
-
-.button-row {
-  display: flex;
-  gap: 4px;
-}
-
-.button-row button {
-  flex: 1;
-  padding: 4px 8px;
-  font-size: 11px;
-  border: 1px solid #5e72e4;
   background: white;
-  color: #5e72e4;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.button-row button:hover {
-  background: #5e72e4;
-  color: white;
-}
-
-/* Heritage summary */
-.heritage-summary {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.heritage-item {
-  padding: 6px 8px;
-  background: white;
-  border-radius: 3px;
-  border-left: 3px solid #5e72e4;
-  font-size: 12px;
-}
-
-.heritage-missing {
-  padding: 6px 8px;
-  background: #fff3cd;
-  border-radius: 3px;
-  border-left: 3px solid #ffc107;
-  font-size: 12px;
-  color: #856404;
-  font-style: italic;
-}
-
-/* Compact traits grid */
-.traits-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.trait-compact {
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.trait-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 6px;
-}
-
-.trait-label {
+  border-left: 2px solid #5e72e4;
+  border-radius: 2px;
   font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #666;
-  margin: 0;
 }
 
-.trait-roll {
-  background: #5e72e4;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
+/* ===== GENERAL COMPACT IMPROVEMENTS ===== */
+
+.item-create-controls.compact .compendium-browser.compact,
+.item-create-controls.compact .item-create.compact {
+  padding: 3px 6px;
+  font-size: 9px;
+  border-radius: 2px;
 }
 
-.trait-roll:hover {
-  background: #4c63d2;
+/* Make all form inputs smaller */
+input[type="text"],
+input[type="number"],
+textarea {
+  font-size: 11px !important;
+  padding: 2px 4px !important;
 }
 
-.trait-values {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.trait-score {
-  width: 40px;
-  text-align: center;
-  padding: 4px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.trait-mod {
-  font-size: 12px;
-  font-weight: bold;
-  color: #5e72e4;
-  min-width: 24px;
-  text-align: center;
+/* Make all buttons consistently small */
+button {
+  font-size: 10px !important;
+  padding: 3px 6px !important;
 } 

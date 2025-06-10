@@ -1,28 +1,28 @@
-<div class="inventory-section">
-  <h3>Equipment & Inventory</h3>
+<div class="inventory-section compact">
+  <h4 class="section-title">Equipment & Inventory</h4>
   
   {{!-- Equipment Section --}}
-  <div class="equipment-section">
-    <h4>Equipment</h4>
-    <div class="equipment-slots">
-      <div class="equipped-items item-list">
+  <div class="equipment-section compact">
+    <h5 class="subsection-title">Equipped</h5>
+    <div class="equipment-slots compact">
+      <div class="equipped-items item-list compact">
         {{#each gear as |item|}}
           {{#if item.system.equipped}}
-            <div class="item equipment-item flexrow" data-item-id="{{item._id}}">
-              <div class="item-image">
-                <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+            <div class="item equipment-item compact flexrow" data-item-id="{{item._id}}">
+              <div class="item-image compact">
+                <img src="{{item.img}}" title="{{item.name}}" width="20" height="20"/>
               </div>
-              <h4 class="item-name">{{item.name}}</h4>
-              <div class="item-type">{{capitalize item.system.equipmentType}}</div>
-              <div class="item-tier">T{{item.system.tier}}</div>
+              <h6 class="item-name compact">{{item.name}}</h6>
+              <div class="item-type compact">{{capitalize item.system.equipmentType}}</div>
+              <div class="item-tier compact">T{{item.system.tier}}</div>
               {{#if item.system.damage}}
-                <div class="item-damage">{{item.system.damage}}</div>
+                <div class="item-damage compact">{{item.system.damage}}</div>
               {{/if}}
-              <div class="item-controls">
-                <a class="item-control item-roll" title="Roll/Use Item"><i class="fas fa-dice-d20"></i></a>
-                <a class="item-control item-toggle" title="Unequip"><i class="fas fa-shield-alt"></i></a>
-                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+              <div class="item-controls compact">
+                <a class="item-control item-roll compact" title="Roll/Use Item"><i class="fas fa-dice-d20"></i></a>
+                <a class="item-control item-toggle compact" title="Unequip"><i class="fas fa-shield-alt"></i></a>
+                <a class="item-control item-edit compact" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete compact" title="Delete Item"><i class="fas fa-trash"></i></a>
               </div>
             </div>
           {{/if}}
@@ -32,56 +32,56 @@
   </div>
 
   {{!-- Inventory Section --}}
-  <div class="inventory-items">
-    <h4>Inventory</h4>
-    <div class="item-list">
+  <div class="inventory-items compact">
+    <h5 class="subsection-title">Inventory</h5>
+    <div class="item-list compact">
       {{#each gear as |item|}}
         {{#unless item.system.equipped}}
-          <div class="item inventory-item flexrow" data-item-id="{{item._id}}">
-            <div class="item-image">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+          <div class="item inventory-item compact flexrow" data-item-id="{{item._id}}">
+            <div class="item-image compact">
+              <img src="{{item.img}}" title="{{item.name}}" width="20" height="20"/>
             </div>
-            <h4 class="item-name">{{item.name}}</h4>
-            <div class="item-quantity">×{{item.system.quantity}}</div>
-            <div class="item-type">{{capitalize item.system.equipmentType}}</div>
+            <h6 class="item-name compact">{{item.name}}</h6>
+            <div class="item-quantity compact">×{{item.system.quantity}}</div>
+            <div class="item-type compact">{{capitalize item.system.equipmentType}}</div>
             {{#if item.system.weight}}
-              <div class="item-weight">{{item.system.totalWeight}} lb</div>
+              <div class="item-weight compact">{{item.system.totalWeight}} lb</div>
             {{/if}}
-            <div class="item-controls">
+            <div class="item-controls compact">
               {{#if (eq item.system.equipmentType "weapon")}}
-                <a class="item-control item-roll" title="Attack"><i class="fas fa-sword"></i></a>
+                <a class="item-control item-roll compact" title="Attack"><i class="fas fa-sword"></i></a>
               {{/if}}
               {{#if (ne item.system.equipmentType "gear")}}
-                <a class="item-control item-toggle" title="Equip"><i class="fas fa-tshirt"></i></a>
+                <a class="item-control item-toggle compact" title="Equip"><i class="fas fa-tshirt"></i></a>
               {{/if}}
-              <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+              <a class="item-control item-edit compact" title="Edit Item"><i class="fas fa-edit"></i></a>
+              <a class="item-control item-delete compact" title="Delete Item"><i class="fas fa-trash"></i></a>
             </div>
           </div>
         {{/unless}}
       {{/each}}
 
       {{#unless gear}}
-        <div class="item empty-slot">
-          <p>No equipment. Create new items or drag from compendium.</p>
+        <div class="item empty-slot compact">
+          <p>No equipment. Use the buttons below to add items.</p>
         </div>
       {{/unless}}
     </div>
   </div>
 
   {{!-- Equipment selection from compendium --}}
-  <div class="item-create-controls">
-    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="weapon" title="Browse Weapons">
-      <i class="fas fa-sword"></i> Add Weapon
+  <div class="item-create-controls compact">
+    <button type="button" class="compendium-browser compact" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="weapon" title="Browse Weapons">
+      <i class="fas fa-sword"></i> Weapon
     </button>
-    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="armor" title="Browse Armor">
-      <i class="fas fa-tshirt"></i> Add Armor
+    <button type="button" class="compendium-browser compact" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="armor" title="Browse Armor">
+      <i class="fas fa-tshirt"></i> Armor
     </button>
-    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="gear" title="Browse Gear">
-      <i class="fas fa-toolbox"></i> Add Gear
+    <button type="button" class="compendium-browser compact" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="gear" title="Browse Gear">
+      <i class="fas fa-toolbox"></i> Gear
     </button>
-    <button type="button" class="item-create" data-type="equipment" title="Create Custom Item">
-      <i class="fas fa-plus"></i> Create Custom
+    <button type="button" class="item-create compact" data-type="equipment" title="Create Custom Item">
+      <i class="fas fa-plus"></i> Custom
     </button>
   </div>
 </div> 
