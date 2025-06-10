@@ -16,11 +16,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for release notes generation
 
     # Extract version from tag
     - name: Get version from tag
       id: get_version
       run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    # Generate release notes from commit messages
+    - name: Generate Release Notes
+      id: generate_notes
+      run: |
+        # Get the previous tag
+        PREV_TAG=$(git describe --tags --abbrev=0 ${{ steps.get_version.outputs.VERSION }}^ 2>/dev/null || echo "")
+        
+        # Generate release notes from commit messages
+        if [ -n "$PREV_TAG" ]; then
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "## Changes since $PREV_TAG" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s" $PREV_TAG..${{ steps.get_version.outputs.VERSION }} >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        else
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "## Initial Release" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s" ${{ steps.get_version.outputs.VERSION }} >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        fi
 
     # Substitute the Manifest and Download Links For Versioned Ones
     - name: Substitute Manifest and Download Links For Versioned Ones
@@ -46,10 +72,11 @@ jobs:
         name: Release ${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
+        makeLatest: true
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './system.json, ./system.zip'
         tag: ${{ steps.get_version.outputs.VERSION }}
-        body: "notes coming soon"
+        body: ${{ steps.generate_notes.outputs.RELEASE_NOTES }}
 
     # Update the 'latest' release
     - name: Create Latest Release
@@ -60,7 +87,8 @@ jobs:
         name: Latest
         draft: false
         prerelease: false
+        makeLatest: true
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './system.json,./system.zip'
         tag: latest
-        body: "notes coming soon" 
+        body: ${{ steps.generate_notes.outputs.RELEASE_NOTES }} 
