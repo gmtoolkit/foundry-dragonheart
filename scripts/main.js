@@ -5,17 +5,15 @@
 
 // Re-export everything from init.js to maintain compatibility
 export * from "./init.js";
+import { rollItemMacro } from "./init.js";
 
 // Import document classes.
-import { DaggerheartActor } from "./documents/actor.js";
-import { DaggerheartItem } from "./documents/item.js";
+import { DaggerheartActor } from "./actor/actor.js";
+import { DaggerheartItem } from "./item/item.js";
 // Import sheet classes.
-import { DaggerheartActorSheet } from "./sheets/actor-sheet.js";
-import { DaggerheartNPCSheet } from "./sheets/npc-sheet.js";
-import { DaggerheartItemSheet } from "./sheets/item-sheet.js";
-// Import helper modules.
-import * as chat from "./helpers/chat.js";
-import * as migrations from "./helpers/migrations.js";
+import { DaggerheartActorSheet } from "./actor/actor-sheet.js";
+import { DaggerheartNPCSheet } from "./actor/npc-sheet.js";
+import { DaggerheartItemSheet } from "./item/item-sheet.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
