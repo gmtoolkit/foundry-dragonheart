@@ -18,6 +18,11 @@ import { DualityDice } from "./dice/duality-dice.js";
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
+// Register Handlebars helpers very early
+Hooks.once("setup", function() {
+  registerHandlebarsHelpers();
+});
+
 Hooks.once("init", async function() {
   console.log("Daggerheart | Initializing the Daggerheart System");
 
@@ -52,8 +57,10 @@ Hooks.once("init", async function() {
   // Register system settings
   registerSettings();
 
-  // Register Handlebars helpers
+  // Register Handlebars helpers again to be sure
   registerHandlebarsHelpers();
+  
+  console.log("Daggerheart | System initialization complete");
 });
 
 /* -------------------------------------------- */
@@ -106,6 +113,8 @@ function registerSettings() {
 /* -------------------------------------------- */
 
 function registerHandlebarsHelpers() {
+  console.log("Daggerheart | Registering Handlebars helpers...");
+  
   // Register custom Handlebars helpers
   Handlebars.registerHelper('concat', function() {
     var outStr = '';
@@ -133,6 +142,21 @@ function registerHandlebarsHelpers() {
     if (typeof str !== 'string') return '';
     return str.charAt(0).toUpperCase() + str.slice(1);
   });
+  
+  // Also register some additional useful helpers
+  Handlebars.registerHelper('ne', function(a, b) {
+    return a !== b;
+  });
+  
+  Handlebars.registerHelper('and', function(a, b) {
+    return a && b;
+  });
+  
+  Handlebars.registerHelper('or', function(a, b) {
+    return a || b;
+  });
+  
+  console.log("Daggerheart | All Handlebars helpers registered successfully");
 }
 
 /* -------------------------------------------- */
@@ -167,7 +191,7 @@ async function createItemMacro(data, slot) {
 
   // Create the macro command
   const command = `game.daggerheart.rollItemMacro("${item.name}");`;
-  let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
+  let macro = game.macros.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
     macro = await Macro.create({
       name: item.name,
