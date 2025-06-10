@@ -18,13 +18,11 @@ import { DualityDice } from "./dice/duality-dice.js";
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
-// Register Handlebars helpers very early
-Hooks.once("setup", function() {
-  registerHandlebarsHelpers();
-});
-
 Hooks.once("init", async function() {
   console.log("Daggerheart | Initializing the Daggerheart System");
+
+  // Register Handlebars helpers FIRST
+  registerHandlebarsHelpers();
 
   // Assign custom classes and constants here
   game.daggerheart = {
@@ -56,11 +54,14 @@ Hooks.once("init", async function() {
 
   // Register system settings
   registerSettings();
-
-  // Register Handlebars helpers again to be sure
-  registerHandlebarsHelpers();
   
   console.log("Daggerheart | System initialization complete");
+});
+
+// Also register on ready as a backup
+Hooks.once("ready", function() {
+  console.log("Daggerheart | Ready hook - ensuring helpers are registered");
+  registerHandlebarsHelpers();
 });
 
 /* -------------------------------------------- */
@@ -115,48 +116,75 @@ function registerSettings() {
 function registerHandlebarsHelpers() {
   console.log("Daggerheart | Registering Handlebars helpers...");
   
-  // Register custom Handlebars helpers
-  Handlebars.registerHelper('concat', function() {
-    var outStr = '';
-    for (var arg in arguments) {
-      if (typeof arguments[arg] != 'object') {
-        outStr += arguments[arg];
+  // Helper functions
+  const helpers = {
+    concat: function() {
+      var outStr = '';
+      for (var arg in arguments) {
+        if (typeof arguments[arg] != 'object') {
+          outStr += arguments[arg];
+        }
       }
+      return outStr;
+    },
+    toLowerCase: function(str) {
+      return str?.toLowerCase() || '';
+    },
+    eq: function(a, b) {
+      return a === b;
+    },
+    add: function(a, b) {
+      return a + b;
+    },
+    capitalize: function(str) {
+      if (typeof str !== 'string') return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+    ne: function(a, b) {
+      return a !== b;
+    },
+    and: function(a, b) {
+      return a && b;
+    },
+    or: function(a, b) {
+      return a || b;
     }
-    return outStr;
-  });
-
-  Handlebars.registerHelper('toLowerCase', function(str) {
-    return str.toLowerCase();
-  });
-
-  Handlebars.registerHelper('eq', function(a, b) {
-    return a === b;
-  });
-
-  Handlebars.registerHelper('add', function(a, b) {
-    return a + b;
-  });
-
-  Handlebars.registerHelper('capitalize', function(str) {
-    if (typeof str !== 'string') return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  });
+  };
   
-  // Also register some additional useful helpers
-  Handlebars.registerHelper('ne', function(a, b) {
-    return a !== b;
-  });
+  // Register with global Handlebars if available
+  if (typeof Handlebars !== 'undefined') {
+    try {
+      for (const [name, helper] of Object.entries(helpers)) {
+        Handlebars.registerHelper(name, helper);
+        console.log(`Daggerheart | Registered helper: ${name}`);
+      }
+      
+      // Test that capitalize helper is working
+      if (Handlebars.helpers && Handlebars.helpers.capitalize) {
+        const testResult = Handlebars.helpers.capitalize('test');
+        console.log("Daggerheart | Capitalize helper test:", testResult);
+      }
+      
+    } catch (error) {
+      console.error("Daggerheart | Error registering global Handlebars helpers:", error);
+    }
+  } else {
+    console.warn("Daggerheart | Global Handlebars not available");
+  }
   
-  Handlebars.registerHelper('and', function(a, b) {
-    return a && b;
-  });
+  // Also try to register with Foundry's system if available
+  if (typeof foundry !== 'undefined' && foundry.applications?.handlebars) {
+    try {
+      for (const [name, helper] of Object.entries(helpers)) {
+        foundry.applications.handlebars.registerHelper(name, helper);
+      }
+      console.log("Daggerheart | Registered helpers with Foundry's Handlebars system");
+    } catch (error) {
+      console.error("Daggerheart | Error registering Foundry Handlebars helpers:", error);
+    }
+  }
   
-  Handlebars.registerHelper('or', function(a, b) {
-    return a || b;
-  });
-  
-  console.log("Daggerheart | All Handlebars helpers registered successfully");
+  console.log("Daggerheart | Handlebars helper registration complete");
 }
 
 /* -------------------------------------------- */
