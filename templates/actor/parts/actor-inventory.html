@@ -69,16 +69,19 @@
     </div>
   </div>
 
-  {{!-- Create new equipment --}}
+  {{!-- Equipment selection from compendium --}}
   <div class="item-create-controls">
-    <button type="button" class="item-create" data-type="equipment" data-equipment-type="weapon" title="Create Weapon">
+    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="weapon" title="Browse Weapons">
       <i class="fas fa-sword"></i> Add Weapon
     </button>
-    <button type="button" class="item-create" data-type="equipment" data-equipment-type="armor" title="Create Armor">
+    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="armor" title="Browse Armor">
       <i class="fas fa-tshirt"></i> Add Armor
     </button>
-    <button type="button" class="item-create" data-type="equipment" data-equipment-type="gear" title="Create Gear">
+    <button type="button" class="compendium-browser" data-pack="daggerheart.equipment" data-type="equipment" data-subtype="gear" title="Browse Gear">
       <i class="fas fa-toolbox"></i> Add Gear
+    </button>
+    <button type="button" class="item-create" data-type="equipment" title="Create Custom Item">
+      <i class="fas fa-plus"></i> Create Custom
     </button>
   </div>
 </div> 

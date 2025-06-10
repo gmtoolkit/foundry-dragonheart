@@ -202,6 +202,12 @@ export class DaggerheartActorSheet extends foundry.appv1.sheets.ActorSheet {
       }
     });
 
+    // Compendium browser buttons
+    html.find('.compendium-browser').click(this._onCompendiumBrowser.bind(this));
+
+    // Remove item buttons
+    html.find('.remove-item').click(this._onRemoveItem.bind(this));
+
     // Domain card movement
     html.find('.card-to-loadout').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
@@ -450,5 +456,182 @@ export class DaggerheartActorSheet extends foundry.appv1.sheets.ActorSheet {
     }
 
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /**
+   * Handle opening compendium browser
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onCompendiumBrowser(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const packKey = button.dataset.pack;
+    const itemType = button.dataset.type;
+    const subtype = button.dataset.subtype;
+    
+    // Get the compendium pack
+    const pack = game.packs.get(packKey);
+    if (!pack) {
+      ui.notifications.error(`Compendium pack ${packKey} not found`);
+      return;
+    }
+
+    // Create a simple selection dialog
+    const items = await pack.getDocuments();
+    let filteredItems = items.filter(item => item.type === itemType);
+    
+    // Further filter by subtype if specified (for equipment)
+    if (subtype && itemType === 'equipment') {
+      filteredItems = filteredItems.filter(item => item.system.equipmentType === subtype);
+    }
+    
+    if (filteredItems.length === 0) {
+      const typeLabel = subtype ? `${subtype} ${itemType}` : itemType;
+      ui.notifications.warn(`No ${typeLabel} items found in compendium`);
+      return;
+    }
+
+    // Create dialog content
+    const options = filteredItems.map(item => {
+      let displayName = item.name;
+      if (item.system.tier) displayName += ` (T${item.system.tier})`;
+      if (item.system.damage) displayName += ` [${item.system.damage}]`;
+      return `<option value="${item.id}">${displayName}</option>`;
+    }).join('');
+
+    const dialogTitle = subtype ? 
+      `Choose ${subtype.charAt(0).toUpperCase() + subtype.slice(1)}` : 
+      `Choose ${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`;
+
+    const content = `
+      <form>
+        <div class="form-group">
+          <label>${dialogTitle}:</label>
+          <select name="itemId" style="width: 100%; margin-top: 5px;">
+            <option value="">-- Select ${subtype || itemType} --</option>
+            ${options}
+          </select>
+        </div>
+        <div class="form-group" style="margin-top: 10px;">
+          <div id="item-preview" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-top: 10px; display: none;">
+          </div>
+        </div>
+      </form>
+    `;
+
+    new Dialog({
+      title: dialogTitle,
+      content: content,
+      buttons: {
+        select: {
+          icon: '<i class="fas fa-check"></i>',
+          label: "Select",
+          callback: async (html) => {
+            const itemId = html.find('[name="itemId"]').val();
+            if (!itemId) {
+              ui.notifications.warn("Please select an item");
+              return;
+            }
+            
+            const selectedItem = filteredItems.find(item => item.id === itemId);
+            if (selectedItem) {
+              await this._addItemToActor(selectedItem, itemType);
+            }
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel"
+        }
+      },
+      default: "select",
+      render: (html) => {
+        // Add preview functionality
+        html.find('[name="itemId"]').change(function() {
+          const itemId = $(this).val();
+          const preview = html.find('#item-preview');
+          
+          if (!itemId) {
+            preview.hide();
+            return;
+          }
+          
+          const selectedItem = filteredItems.find(item => item.id === itemId);
+          if (selectedItem) {
+            let previewContent = selectedItem.system.description || "No description available";
+            
+            // Add equipment stats for preview
+            if (selectedItem.type === 'equipment') {
+              previewContent += `<br><br><strong>Stats:</strong><br>`;
+              if (selectedItem.system.tier) previewContent += `Tier: ${selectedItem.system.tier}<br>`;
+              if (selectedItem.system.damage) previewContent += `Damage: ${selectedItem.system.damage}<br>`;
+              if (selectedItem.system.armor) previewContent += `Armor: ${selectedItem.system.armor}<br>`;
+              if (selectedItem.system.range) previewContent += `Range: ${selectedItem.system.range}<br>`;
+              if (selectedItem.system.traits?.length) previewContent += `Traits: ${selectedItem.system.traits.join(', ')}<br>`;
+            }
+            
+            preview.html(previewContent);
+            preview.show();
+          }
+        });
+      }
+    }).render(true);
+  }
+
+  /**
+   * Add an item to the actor based on type
+   * @param {Object} item   The item to add
+   * @param {string} type   The type of item
+   * @private
+   */
+  async _addItemToActor(item, type) {
+    const itemData = item.toObject();
+    
+    // Handle special cases for ancestry, community, class
+    if (type === 'ancestry' || type === 'community') {
+      // Remove existing items of this type first
+      const existingItems = this.actor.items.filter(i => i.type === type);
+      if (existingItems.length > 0) {
+        await this.actor.deleteEmbeddedDocuments("Item", existingItems.map(i => i.id));
+      }
+    }
+    
+    // Create the new item
+    await this.actor.createEmbeddedDocuments("Item", [itemData]);
+    ui.notifications.info(`Added ${item.name} to character`);
+  }
+
+  /**
+   * Handle removing items
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onRemoveItem(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const itemType = button.dataset.itemType;
+    const itemId = button.dataset.itemId;
+
+    const confirmed = await Dialog.confirm({
+      title: `Remove ${itemType}`,
+      content: `<p>Are you sure you want to remove this ${itemType}?</p>`,
+      defaultYes: false
+    });
+
+    if (!confirmed) return;
+
+    if (itemId) {
+      // Remove specific item by ID
+      await this.actor.deleteEmbeddedDocuments("Item", [itemId]);
+    } else {
+      // Remove by type (for ancestry/community)
+      const items = this.actor.items.filter(i => i.type === itemType);
+      if (items.length > 0) {
+        await this.actor.deleteEmbeddedDocuments("Item", items.map(i => i.id));
+      }
+    }
+
+    ui.notifications.info(`Removed ${itemType} from character`);
   }
 } 

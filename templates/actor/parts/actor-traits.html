@@ -1,19 +1,15 @@
-<div class="traits-list">
+<div class="traits-grid">
   {{#each system.traits as |trait key|}}
-    <div class="trait flexrow">
-      <div class="trait-name">
+    <div class="trait-compact">
+      <div class="trait-header">
         <label class="trait-label">{{capitalize key}}</label>
-      </div>
-      <div class="trait-score">
-        <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number"/>
-      </div>
-      <div class="trait-modifier">
-        <span class="trait-mod">{{numberFormat trait.mod decimals=0 sign=true}}</span>
-      </div>
-      <div class="trait-roll">
         <button type="button" class="trait-roll rollable" data-roll-type="trait" data-trait="{{key}}" title="Roll {{capitalize key}}">
           <i class="fas fa-dice-d20"></i>
         </button>
+      </div>
+      <div class="trait-values">
+        <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number" class="trait-score"/>
+        <span class="trait-mod">{{numberFormat trait.mod decimals=0 sign=true}}</span>
       </div>
     </div>
   {{/each}}

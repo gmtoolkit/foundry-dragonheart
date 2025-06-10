@@ -9,27 +9,33 @@
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/></h1>
         <div class="resources flexrow">
           <div class="resource">
-            <label for="system.health.value" class="resource-label">HP</label>
+            <label for="system.health.value" class="resource-label">Hit Points</label>
             <div class="resource-content flexrow flex-center flex-between">
+              <span class="resource-sublabel">Current</span>
               <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
               <span> / </span>
               <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+              <span class="resource-sublabel">Max</span>
             </div>
           </div>
           <div class="resource">
             <label for="system.stress.value" class="resource-label">Stress</label>
             <div class="resource-content flexrow flex-center flex-between">
+              <span class="resource-sublabel">Current</span>
               <input type="text" name="system.stress.value" value="{{system.stress.value}}" data-dtype="Number"/>
               <span> / </span>
               <input type="text" name="system.stress.max" value="{{system.stress.max}}" data-dtype="Number"/>
+              <span class="resource-sublabel">Max</span>
             </div>
           </div>
           <div class="resource">
             <label for="system.derived.hope.value" class="resource-label">Hope</label>
             <div class="resource-content flexrow flex-center flex-between">
+              <span class="resource-sublabel">Current</span>
               <input type="text" name="system.derived.hope.value" value="{{system.derived.hope.value}}" data-dtype="Number"/>
               <span> / </span>
               <input type="text" name="system.derived.hope.max" value="{{system.derived.hope.max}}" data-dtype="Number"/>
+              <span class="resource-sublabel">Max</span>
             </div>
             <div class="hope-controls flexrow">
               <button type="button" class="hope-spend" data-amount="1" title="Spend Hope">
@@ -59,39 +65,94 @@
 
     {{!-- Overview Tab --}}
     <div class="tab overview" data-group="primary" data-tab="overview">
-      <div class="grid grid-2col">
-        
-        {{!-- Left Column --}}
-        <div class="traits">
-          <h3>Traits</h3>
-          {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
+      <div class="overview-grid">
+        {{!-- Left Column: Traits and Abilities --}}
+        <div class="left-column">
+          <div class="traits-section">
+            <h4>Ability Scores</h4>
+            {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
+          </div>
+          
+          <div class="derived-stats-compact">
+            <h4>Derived Stats</h4>
+            <div class="stats-row">
+              <div class="stat-compact">
+                <label class="stat-label rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
+                <div class="stat-value">{{system.derived.evasion.value}}</div>
+              </div>
+              <div class="stat-compact">
+                <label class="stat-label">Proficiency</label>
+                <div class="stat-value">{{system.derived.proficiency.value}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="character-basics">
+            <h4>Character Info</h4>
+            <div class="basics-grid">
+              <div class="basic-field">
+                <label>Level</label>
+                <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number"/>
+              </div>
+              <div class="basic-field">
+                <label>Experience</label>
+                <input type="number" name="system.experience" value="{{system.experience}}" data-dtype="Number"/>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {{!-- Right Column --}}
-        <div class="derived-stats">
-          <h3>Derived Stats</h3>
-          <div class="stat-block">
-            <div class="stat">
-              <label class="stat-label rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
-              <div class="stat-value">{{system.derived.evasion.value}}</div>
+        {{!-- Right Column: Actions and Management --}}
+        <div class="right-column">
+          <div class="action-controls">
+            <h4>Actions</h4>
+            <div class="control-group">
+              <label>Rest</label>
+              <div class="button-row">
+                <button type="button" class="short-rest">Short Rest</button>
+                <button type="button" class="long-rest">Long Rest</button>
+              </div>
             </div>
-            <div class="stat">
-              <label class="stat-label">Proficiency</label>
-              <div class="stat-value">{{system.derived.proficiency.value}}</div>
+
+            <div class="control-group">
+              <label>Stress Management</label>
+              <div class="button-row">
+                <button type="button" class="stress-add" data-amount="1">+1 Stress</button>
+                <button type="button" class="stress-clear" data-amount="1">-1 Stress</button>
+                <button type="button" class="stress-clear">Clear All</button>
+              </div>
             </div>
           </div>
 
-          <div class="rest-controls">
-            <h4>Rest</h4>
-            <button type="button" class="short-rest">Short Rest</button>
-            <button type="button" class="long-rest">Long Rest</button>
-          </div>
+          <div class="quick-heritage">
+            <h4>Heritage Summary</h4>
+            <div class="heritage-summary">
+              {{#if ancestry}}
+                <div class="heritage-item">
+                  <strong>Ancestry:</strong> {{ancestry.name}}
+                </div>
+              {{else}}
+                <div class="heritage-missing">No ancestry selected</div>
+              {{/if}}
+              
+              {{#if community}}
+                <div class="heritage-item">
+                  <strong>Community:</strong> {{community.name}}
+                </div>
+              {{else}}
+                <div class="heritage-missing">No community selected</div>
+              {{/if}}
 
-          <div class="stress-controls">
-            <h4>Stress Management</h4>
-            <button type="button" class="stress-add" data-amount="1">+1 Stress</button>
-            <button type="button" class="stress-clear" data-amount="1">-1 Stress</button>
-            <button type="button" class="stress-clear">Clear All</button>
+              {{#if classes}}
+                {{#each classes as |cls|}}
+                  <div class="heritage-item">
+                    <strong>{{#if (eq cls.type "class")}}Class{{else}}Subclass{{/if}}:</strong> {{cls.name}}
+                  </div>
+                {{/each}}
+              {{else}}
+                <div class="heritage-missing">No class selected</div>
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>
@@ -101,10 +162,20 @@
     <div class="tab heritage" data-group="primary" data-tab="heritage">
       <div class="grid grid-2col">
         <div class="ancestry-section">
-          <h3>Ancestry</h3>
+          <div class="section-header">
+            <h3>Ancestry</h3>
+            <button type="button" class="compendium-browser" data-pack="daggerheart.ancestries" data-type="ancestry" title="Choose Ancestry">
+              <i class="fas fa-search"></i> Browse Ancestries
+            </button>
+          </div>
           {{#if ancestry}}
             <div class="ancestry-display">
-              <h4>{{ancestry.name}}</h4>
+              <div class="item-header">
+                <h4>{{ancestry.name}}</h4>
+                <button type="button" class="remove-item" data-item-type="ancestry" title="Remove Ancestry">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
               <div class="ancestry-description">{{{ancestry.system.description}}}</div>
               {{#each ancestry.system.features as |feature|}}
                 <div class="feature">
@@ -114,16 +185,26 @@
             </div>
           {{else}}
             <div class="no-ancestry">
-              <p>No ancestry selected. Drag an ancestry from the compendium or create one.</p>
+              <p>No ancestry selected. Click "Browse Ancestries" to choose from the compendium.</p>
             </div>
           {{/if}}
         </div>
 
         <div class="community-section">
-          <h3>Community</h3>
+          <div class="section-header">
+            <h3>Community</h3>
+            <button type="button" class="compendium-browser" data-pack="daggerheart.communities" data-type="community" title="Choose Community">
+              <i class="fas fa-search"></i> Browse Communities
+            </button>
+          </div>
           {{#if community}}
             <div class="community-display">
-              <h4>{{community.name}}</h4>
+              <div class="item-header">
+                <h4>{{community.name}}</h4>
+                <button type="button" class="remove-item" data-item-type="community" title="Remove Community">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
               <div class="community-description">{{{community.system.description}}}</div>
               <div class="feature">
                 <strong>Community Feature:</strong> {{community.system.feature}}
@@ -131,7 +212,7 @@
             </div>
           {{else}}
             <div class="no-community">
-              <p>No community selected. Drag a community from the compendium or create one.</p>
+              <p>No community selected. Click "Browse Communities" to choose from the compendium.</p>
             </div>
           {{/if}}
         </div>
@@ -141,11 +222,21 @@
     {{!-- Class Tab --}}
     <div class="tab class" data-group="primary" data-tab="class">
       <div class="class-info">
-        <h3>Class Information</h3>
+        <div class="section-header">
+          <h3>Class Information</h3>
+          <button type="button" class="compendium-browser" data-pack="daggerheart.classes" data-type="class" title="Choose Class">
+            <i class="fas fa-search"></i> Browse Classes
+          </button>
+        </div>
         {{#if classes}}
           {{#each classes as |cls|}}
             <div class="class-item">
-              <h4>{{cls.name}}</h4>
+              <div class="item-header">
+                <h4>{{cls.name}}</h4>
+                <button type="button" class="remove-item" data-item-type="class" data-item-id="{{cls._id}}" title="Remove Class">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
               {{#if (eq cls.type "class")}}
                 <div class="class-details">
                   <p><strong>Level:</strong> {{cls.system.level}}</p>
@@ -192,7 +283,7 @@
             </div>
           {{/each}}
         {{else}}
-          <p>No class selected. Drag a class from the compendium or create one.</p>
+          <p>No class selected. Click "Browse Classes" to choose from the compendium.</p>
         {{/if}}
       </div>
 

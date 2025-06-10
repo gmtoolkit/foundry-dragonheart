@@ -1,0 +1,403 @@
+/* Character sheet resource labels and sublabels */
+.resource {
+  min-width: 120px;
+}
+
+.resource-sublabel {
+  font-size: 10px;
+  color: #666;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+
+/* Section headers with browse buttons */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #5e72e4;
+  padding-bottom: 5px;
+}
+
+.section-header h3 {
+  margin: 0;
+  color: #5e72e4;
+}
+
+/* Compendium browser buttons */
+.compendium-browser {
+  background: #5e72e4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.compendium-browser:hover {
+  background: #4c63d2;
+}
+
+.compendium-browser i {
+  margin-right: 4px;
+}
+
+/* Item headers with remove buttons */
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.item-header h4 {
+  margin: 0;
+  color: #5e72e4;
+}
+
+.remove-item {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-item:hover {
+  background: #c82333;
+}
+
+/* Item create controls */
+.item-create-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.item-create-controls .compendium-browser,
+.item-create-controls .item-create {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* More compact character sheet */
+.grid.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Compact ancestry/community display */
+.ancestry-display,
+.community-display {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background: #f8f9fa;
+}
+
+.ancestry-description,
+.community-description {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.feature {
+  margin: 6px 0;
+  padding: 4px 8px;
+  background: white;
+  border-left: 3px solid #5e72e4;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+/* No selection states */
+.no-ancestry,
+.no-community {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Class items */
+.class-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+}
+
+.class-details,
+.subclass-details {
+  margin: 8px 0;
+}
+
+.class-details p,
+.subclass-details p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.hope-feature,
+.core-feature,
+.foundation-feature,
+.specialization-feature,
+.mastery-feature {
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: white;
+  border-left: 3px solid #5e72e4;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+/* Compact overview layout */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  height: 100%;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Compact sections */
+.traits-section,
+.derived-stats-compact,
+.character-basics,
+.action-controls,
+.quick-heritage {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  background: #f8f9fa;
+}
+
+.traits-section h4,
+.derived-stats-compact h4,
+.character-basics h4,
+.action-controls h4,
+.quick-heritage h4 {
+  margin: 0 0 10px 0;
+  color: #5e72e4;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #5e72e4;
+  padding-bottom: 4px;
+}
+
+/* Compact stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.stat-compact .stat-label {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: #666;
+}
+
+.stat-compact .stat-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #5e72e4;
+}
+
+/* Character basics grid */
+.basics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.basic-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-field label {
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #666;
+}
+
+.basic-field input {
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  text-align: center;
+}
+
+/* Control groups */
+.control-group {
+  margin-bottom: 12px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #666;
+}
+
+.button-row {
+  display: flex;
+  gap: 4px;
+}
+
+.button-row button {
+  flex: 1;
+  padding: 4px 8px;
+  font-size: 11px;
+  border: 1px solid #5e72e4;
+  background: white;
+  color: #5e72e4;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button-row button:hover {
+  background: #5e72e4;
+  color: white;
+}
+
+/* Heritage summary */
+.heritage-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.heritage-item {
+  padding: 6px 8px;
+  background: white;
+  border-radius: 3px;
+  border-left: 3px solid #5e72e4;
+  font-size: 12px;
+}
+
+.heritage-missing {
+  padding: 6px 8px;
+  background: #fff3cd;
+  border-radius: 3px;
+  border-left: 3px solid #ffc107;
+  font-size: 12px;
+  color: #856404;
+  font-style: italic;
+}
+
+/* Compact traits grid */
+.traits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.trait-compact {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trait-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.trait-label {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0;
+}
+
+.trait-roll {
+  background: #5e72e4;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.trait-roll:hover {
+  background: #4c63d2;
+}
+
+.trait-values {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trait-score {
+  width: 40px;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.trait-mod {
+  font-size: 12px;
+  font-weight: bold;
+  color: #5e72e4;
+  min-width: 24px;
+  text-align: center;
+} 
