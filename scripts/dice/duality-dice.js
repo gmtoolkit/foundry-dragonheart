@@ -22,8 +22,8 @@ export class DualityDice {
     } = options;
 
     // Roll two d12s
-    const hopeDie = new Roll("1d12").evaluate({ async: false });
-    const fearDie = new Roll("1d12").evaluate({ async: false });
+    const hopeDie = new Roll("1d12").evaluateSync();
+    const fearDie = new Roll("1d12").evaluateSync();
 
     const hopeRaw = hopeDie.total;
     const fearRaw = fearDie.total;
@@ -59,7 +59,9 @@ export class DualityDice {
       isSuccess,
       isCriticalSuccess,
       isCriticalFailure,
-      flavor
+      flavor,
+      hopeRoll: hopeDie,
+      fearRoll: fearDie
     };
 
     // Create chat message
@@ -147,7 +149,7 @@ export class DualityDice {
       user: game.user.id,
       content: messageContent,
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL
+      rolls: [result.hopeRoll, result.fearRoll]
     };
 
     if (blindRoll) {
