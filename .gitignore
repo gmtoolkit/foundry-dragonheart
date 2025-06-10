@@ -4,7 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-DH-SRD-May2025.pdf
+DH-*
 
 # Runtime data
 pids
@@ -100,8 +100,7 @@ build/
 *.backup
 
 # FoundryVTT specific
-# Exclude actual pack databases (keep empty directories)
-packs/*.db
+# Exclude lock files but keep compendium databases
 packs/*.lock
 
 # Local development files
