@@ -1,12 +1,10 @@
-<div class="traits-compact">
+<div class="traits-horizontal">
   {{#each system.traits as |trait key|}}
-    <div class="trait-mini">
-      <div class="trait-name">{{capitalize key}}</div>
-      <div class="trait-score">
-        <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number"/>
-      </div>
-      <div class="trait-mod">{{numberFormat trait.mod decimals=0 sign=true}}</div>
-      <button type="button" class="trait-roll-mini rollable" data-roll-type="trait" data-trait="{{key}}" title="Roll {{capitalize key}}">
+    <div class="trait-inline">
+      <div class="trait-name-inline">{{capitalize key}}</div>
+      <input type="text" name="system.traits.{{key}}.value" value="{{trait.value}}" data-dtype="Number" class="trait-score-inline"/>
+      <div class="trait-mod-inline">{{numberFormat trait.mod decimals=0 sign=true}}</div>
+      <button type="button" class="trait-roll-inline rollable" data-roll-type="trait" data-trait="{{key}}" title="Roll {{capitalize key}}">
         <i class="fas fa-dice-d20"></i>
       </button>
     </div>

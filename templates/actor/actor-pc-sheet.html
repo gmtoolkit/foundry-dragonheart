@@ -55,79 +55,71 @@
 
     {{!-- Overview Tab --}}
     <div class="tab overview" data-group="primary" data-tab="overview">
-      <div class="overview-compact">
-        {{!-- Left Column: Traits --}}
-        <div class="traits-column">
-          <h4 class="section-title">Ability Scores</h4>
+      <div class="overview-single-column">
+        {{!-- Ability Scores Row --}}
+        <div class="abilities-section">
+          <h4 class="section-title-inline">Ability Scores</h4>
           {{> "systems/daggerheart/templates/actor/parts/actor-traits.html"}}
         </div>
 
-        {{!-- Middle Column: Derived Stats & Character Info --}}
-        <div class="middle-column">
-          <div class="stats-section">
-            <h4 class="section-title">Derived Stats</h4>
-            <div class="derived-compact">
-              <div class="stat-line">
-                <label class="stat-label rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
-                <span class="stat-value">{{system.derived.evasion.value}}</span>
+        {{!-- Core Stats Row --}}
+        <div class="core-stats-row">
+          <div class="stat-group">
+            <h5 class="stat-group-title">Derived Stats</h5>
+            <div class="stats-inline">
+              <div class="stat-inline">
+                <label class="stat-label-inline rollable" data-roll-type="trait" data-trait="agility">Evasion</label>
+                <span class="stat-value-inline">{{system.derived.evasion.value}}</span>
               </div>
-              <div class="stat-line">
-                <label class="stat-label">Proficiency</label>
-                <span class="stat-value">{{system.derived.proficiency.value}}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="character-info">
-            <h4 class="section-title">Character</h4>
-            <div class="info-compact">
-              <div class="info-line">
-                <label>Level</label>
-                <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number"/>
-              </div>
-              <div class="info-line">
-                <label>Experience</label>
-                <input type="number" name="system.experience" value="{{system.experience}}" data-dtype="Number"/>
+              <div class="stat-inline">
+                <label class="stat-label-inline">Proficiency</label>
+                <span class="stat-value-inline">{{system.derived.proficiency.value}}</span>
               </div>
             </div>
           </div>
 
-          <div class="heritage-compact">
-            <h4 class="section-title">Heritage</h4>
-            <div class="heritage-lines">
-              {{#if ancestry}}
-                <div class="heritage-line"><strong>Ancestry:</strong> {{ancestry.name}}</div>
-              {{else}}
-                <div class="heritage-line missing">No ancestry selected</div>
-              {{/if}}
-              
-              {{#if community}}
-                <div class="heritage-line"><strong>Community:</strong> {{community.name}}</div>
-              {{else}}
-                <div class="heritage-line missing">No community selected</div>
-              {{/if}}
+          <div class="stat-group">
+            <h5 class="stat-group-title">Character</h5>
+            <div class="stats-inline">
+              <div class="stat-inline">
+                <label class="stat-label-inline">Level</label>
+                <input type="number" name="system.level" value="{{system.level}}" data-dtype="Number" class="stat-input-inline"/>
+              </div>
+              <div class="stat-inline">
+                <label class="stat-label-inline">Experience</label>
+                <input type="number" name="system.experience" value="{{system.experience}}" data-dtype="Number" class="stat-input-inline"/>
+              </div>
+            </div>
+          </div>
 
-              {{#if classes}}
-                {{#each classes as |cls|}}
-                  <div class="heritage-line"><strong>{{#if (eq cls.type "class")}}Class{{else}}Subclass{{/if}}:</strong> {{cls.name}}</div>
-                {{/each}}
-              {{else}}
-                <div class="heritage-line missing">No class selected</div>
-              {{/if}}
+          <div class="stat-group">
+            <h5 class="stat-group-title">Actions</h5>
+            <div class="actions-inline">
+              <button type="button" class="action-btn-inline short-rest">Short Rest</button>
+              <button type="button" class="action-btn-inline long-rest">Long Rest</button>
+              <button type="button" class="action-btn-inline stress-add" data-amount="1">+Stress</button>
+              <button type="button" class="action-btn-inline stress-clear">Clear</button>
             </div>
           </div>
         </div>
 
-        {{!-- Right Column: Actions --}}
-        <div class="actions-column">
-          <div class="actions-section">
-            <h4 class="section-title">Actions</h4>
-            <div class="action-buttons">
-              <button type="button" class="action-btn short-rest">Short Rest</button>
-              <button type="button" class="action-btn long-rest">Long Rest</button>
-              <button type="button" class="action-btn stress-add" data-amount="1">+1 Stress</button>
-              <button type="button" class="action-btn stress-clear" data-amount="1">-1 Stress</button>
-              <button type="button" class="action-btn stress-clear">Clear Stress</button>
+        {{!-- Heritage Summary Row --}}
+        <div class="heritage-summary-row">
+          <h4 class="section-title-inline">Heritage Summary</h4>
+          <div class="heritage-inline">
+            <div class="heritage-item-inline">
+              <strong>Ancestry:</strong> 
+              {{#if ancestry}}{{ancestry.name}}{{else}}<em>None selected</em>{{/if}}
+            </div>
+            <div class="heritage-item-inline">
+              <strong>Community:</strong> 
+              {{#if community}}{{community.name}}{{else}}<em>None selected</em>{{/if}}
+            </div>
+            <div class="heritage-item-inline">
+              <strong>Class:</strong> 
+              {{#if classes}}
+                {{#each classes as |cls|}}{{cls.name}}{{#unless @last}}, {{/unless}}{{/each}}
+              {{else}}<em>None selected</em>{{/if}}
             </div>
           </div>
         </div>
