@@ -1073,6 +1073,155 @@
 }
 
 /* =================== 
+   TEXT EDITOR & DESCRIPTION FIXES 
+   =================== */
+
+/* Ensure description content is visible */
+.daggerheart .description-content,
+.daggerheart .editor-content,
+.daggerheart .tab.description,
+.daggerheart .prosemirror,
+.daggerheart .editor {
+  color: var(--dh-text-dark) !important;
+  background: var(--dh-surface) !important;
+}
+
+/* TinyMCE Editor styling */
+.daggerheart .mce-edit-area,
+.daggerheart .mce-content-body {
+  background: var(--dh-surface) !important;
+  color: var(--dh-text-dark) !important;
+}
+
+/* ProseMirror Editor (FoundryVTT's editor) */
+.daggerheart .ProseMirror {
+  background: var(--dh-surface) !important;
+  color: var(--dh-text-dark) !important;
+  border: 2px solid var(--dh-border) !important;
+  border-radius: var(--dh-radius-md) !important;
+  padding: 1rem !important;
+  min-height: 200px !important;
+  font-family: "Inter", "Roboto", sans-serif !important;
+  line-height: 1.6 !important;
+}
+
+.daggerheart .ProseMirror:focus {
+  border-color: var(--dh-primary-blue) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Description placeholders */
+.daggerheart .description-placeholder {
+  color: var(--dh-text-light) !important;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+  background: var(--dh-pale-blue);
+  border-radius: var(--dh-radius-md);
+}
+
+/* Item source styling */
+.daggerheart .item-source {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--dh-border);
+  color: var(--dh-text-light);
+  font-size: 0.875rem;
+}
+
+/* Editor toolbar styling */
+.daggerheart .editor-toolbar {
+  background: var(--dh-surface) !important;
+  border-bottom: 1px solid var(--dh-border) !important;
+}
+
+.daggerheart .editor-toolbar button {
+  color: var(--dh-text-dark) !important;
+  background: transparent !important;
+}
+
+.daggerheart .editor-toolbar button:hover {
+  background: var(--dh-pale-blue) !important;
+  color: var(--dh-primary-blue) !important;
+}
+
+/* Ensure all text areas have proper styling */
+.daggerheart textarea {
+  background: var(--dh-surface) !important;
+  color: var(--dh-text-dark) !important;
+  border: 2px solid var(--dh-border) !important;
+  border-radius: var(--dh-radius-sm) !important;
+  padding: 0.75rem !important;
+  font-family: "Inter", "Roboto", sans-serif !important;
+  line-height: 1.5 !important;
+  resize: vertical !important;
+}
+
+.daggerheart textarea:focus {
+  border-color: var(--dh-primary-blue) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Ensure form inputs are visible too */
+.daggerheart input[type="text"],
+.daggerheart input[type="number"],
+.daggerheart select {
+  background: var(--dh-surface) !important;
+  color: var(--dh-text-dark) !important;
+  border: 2px solid var(--dh-border) !important;
+  border-radius: var(--dh-radius-sm) !important;
+  padding: 0.5rem !important;
+}
+
+.daggerheart input[type="text"]:focus,
+.daggerheart input[type="number"]:focus,
+.daggerheart select:focus {
+  border-color: var(--dh-primary-blue) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* HTML content in descriptions */
+.daggerheart .description-content h1,
+.daggerheart .description-content h2,
+.daggerheart .description-content h3,
+.daggerheart .description-content h4,
+.daggerheart .description-content h5,
+.daggerheart .description-content h6 {
+  color: var(--dh-secondary-blue) !important;
+  margin: 1rem 0 0.5rem 0 !important;
+}
+
+.daggerheart .description-content p {
+  color: var(--dh-text-dark) !important;
+  margin: 0.5rem 0 !important;
+  line-height: 1.6 !important;
+}
+
+.daggerheart .description-content ul,
+.daggerheart .description-content ol {
+  color: var(--dh-text-dark) !important;
+  margin: 0.5rem 0 0.5rem 1.5rem !important;
+}
+
+.daggerheart .description-content li {
+  color: var(--dh-text-dark) !important;
+  margin: 0.25rem 0 !important;
+}
+
+.daggerheart .description-content strong {
+  color: var(--dh-secondary-blue) !important;
+  font-weight: 600 !important;
+}
+
+.daggerheart .description-content em {
+  color: var(--dh-text-light) !important;
+  font-style: italic !important;
+}
+
+/* =================== 
    RESPONSIVE DESIGN 
    =================== */
 @media (max-width: 768px) {

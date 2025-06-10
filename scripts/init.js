@@ -10,6 +10,7 @@
 // Import system classes
 import { DaggerheartActor } from "./actor/actor.js";
 import { DaggerheartActorSheet } from "./actor/actor-sheet.js";
+import { DaggerheartNPCSheet } from "./actor/npc-sheet.js";
 import { DaggerheartItem } from "./item/item.js";
 import { DaggerheartItemSheet } from "./item/item-sheet.js";
 import { DualityDice } from "./dice/duality-dice.js";
@@ -27,6 +28,8 @@ Hooks.once("init", async function() {
   // Assign custom classes and constants here
   game.daggerheart = {
     DaggerheartActor,
+    DaggerheartActorSheet,
+    DaggerheartNPCSheet,
     DaggerheartItem,
     DualityDice,
     rollItemMacro
@@ -39,7 +42,11 @@ Hooks.once("init", async function() {
   // Register sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("daggerheart", DaggerheartActorSheet, {
-    types: ["pc", "npc"],
+    types: ["pc"],
+    makeDefault: true
+  });
+  foundry.documents.collections.Actors.registerSheet("daggerheart", DaggerheartNPCSheet, {
+    types: ["npc"],
     makeDefault: true
   });
   
