@@ -148,6 +148,20 @@ function registerHandlebarsHelpers() {
     },
     or: function(a, b) {
       return a || b;
+    },
+    range: function(start, end) {
+      const result = [];
+      for (let i = start; i <= end; i++) {
+        result.push(i);
+      }
+      return result;
+    },
+    times: function(n, block) {
+      let accum = '';
+      for (let i = 0; i < n; ++i) {
+        accum += block.fn(i);
+      }
+      return accum;
     }
   };
   

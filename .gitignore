@@ -99,10 +99,6 @@ build/
 *.bak
 *.backup
 
-# FoundryVTT specific
-# Exclude lock files but keep compendium databases
-packs/*.lock
-
 # Local development files
 .env.local
 .env.development.local
