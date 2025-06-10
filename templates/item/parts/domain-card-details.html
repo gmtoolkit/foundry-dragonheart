@@ -1,0 +1,49 @@
+<div class="domain-card-details">
+  <div class="card-stats flexrow">
+    {{#if system.level}}
+      <div class="card-level">
+        <label>Level</label>
+        <span class="level-value">{{system.level}}</span>
+      </div>
+    {{/if}}
+    
+    {{#if system.domain}}
+      <div class="card-domain">
+        <label>Domain</label>
+        <span class="domain-value">{{capitalize system.domain}}</span>
+      </div>
+    {{/if}}
+    
+    {{#if system.recallCost}}
+      <div class="card-recall">
+        <label>Recall Cost</label>
+        <span class="recall-value">{{system.recallCost}} Stress</span>
+      </div>
+    {{/if}}
+    
+    {{#if system.cardType}}
+      <div class="card-type">
+        <label>Type</label>
+        <span class="type-value">{{capitalize system.cardType}}</span>
+      </div>
+    {{/if}}
+  </div>
+  
+  {{#if system.location}}
+    <div class="card-location">
+      <label>Current Location:</label>
+      <span class="location-value">{{capitalize system.location}}</span>
+    </div>
+  {{/if}}
+  
+  {{#if system.tags}}
+    <div class="card-tags">
+      <label>Tags:</label>
+      <div class="tags-list">
+        {{#each system.tags}}
+          <span class="tag">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+</div> 

@@ -172,17 +172,8 @@ function registerHandlebarsHelpers() {
     console.warn("Daggerheart | Global Handlebars not available");
   }
   
-  // Also try to register with Foundry's system if available
-  if (typeof foundry !== 'undefined' && foundry.applications?.handlebars) {
-    try {
-      for (const [name, helper] of Object.entries(helpers)) {
-        foundry.applications.handlebars.registerHelper(name, helper);
-      }
-      console.log("Daggerheart | Registered helpers with Foundry's Handlebars system");
-    } catch (error) {
-      console.error("Daggerheart | Error registering Foundry Handlebars helpers:", error);
-    }
-  }
+  // Note: Foundry v13 doesn't expose a registerHelper method on foundry.applications.handlebars
+  // The global Handlebars registration above is sufficient
   
   console.log("Daggerheart | Handlebars helper registration complete");
 }

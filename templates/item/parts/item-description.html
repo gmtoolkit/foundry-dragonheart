@@ -1,0 +1,17 @@
+<div class="item-description-section">
+  {{#if system.description}}
+    <div class="description-content">
+      {{{system.description}}}
+    </div>
+  {{else}}
+    <div class="description-placeholder">
+      <p><em>No description available.</em></p>
+    </div>
+  {{/if}}
+  
+  {{#if system.source}}
+    <div class="item-source">
+      <small><strong>Source:</strong> {{system.source}}</small>
+    </div>
+  {{/if}}
+</div> 
